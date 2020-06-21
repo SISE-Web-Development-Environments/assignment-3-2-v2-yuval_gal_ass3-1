@@ -3,17 +3,17 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
-        <img :src="recipe.image" class="center" />
+        <img :src="recipe.image_url" class="center" />
       </div>
       <div class="recipe-body">
         <div class="mb-3">
           <div>
             <img class="my-icon" src="https://img.icons8.com/cotton/64/000000/clock--v1.png"/>
-            Ready in {{ recipe.readyInMinutes }} minutes |
+            Ready in {{ recipe.prepTime }} minutes |
             <img class="my-icon" src="https://img.icons8.com/plasticine/100/000000/like--v1.png"/>
-            {{ recipe.aggregateLikes }} Likes  |
+            {{ recipe.popularity }} Likes  |
             <img class="my-icon" src="https://img.icons8.com/dusk/64/000000/tableware.png"/>
-            Num of dishes: {{ recipe.servings }}
+            Num of dishes: {{ recipe.num_of_dishes }}
             <div>
               <labal v-if="recipe.vegetarian"> <img class="my-icon" v-if="recipe.vegetarian" src="https://img.icons8.com/dusk/64/000000/vegetarian-food.png"/> Vegetarian </labal>
               <labal v-if="recipe.vegan"> <img class="my-icon" v-if="recipe.vegan" src="https://img.icons8.com/dusk/64/000000/natural-food.png"/> Vegan </labal>
@@ -26,10 +26,10 @@
             Ingredients:
             <ul class="list-group">
               <li
-                  v-for="(r, index) in recipe.extendedIngredients"
-                  :key="index + '_' + r.id" class="list-group-item"
+                  v-for="(r, index) in recipe.ingredients"
+                  :key="index" class="list-group-item"
               >   <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
-                {{ r.original }}
+                {{ r.count }} of {{r.name}}
               </li>
             </ul>
           </div>
@@ -37,7 +37,7 @@
             Instructions:
             <ol class="list-group">
               <li v-for="s in recipe._instructions" :key="s.number" class="list-group-item">
-                {{ s.number }}. {{ s.step }}
+                {{ s }}
               </li>
             </ol>
           </div>
@@ -60,10 +60,10 @@
                 let response;
                 try {
                     response = await axios.get(
-                        "https://test-for-3-2.herokuapp.com/recipes/info",
-                        {
-                            params: { id: this.$route.params.recipeId }
-                        }
+                        'http://localhost/recipes/recipe_page/recId/'+this.$route.params.recipeId,
+                        // {
+                        //     params: { recId: this.$route.params.recipeId }
+                        // }
                     );
                     console.log(response)
                     if (response.status !== 200) this.$router.replace("/NotFound");
@@ -74,39 +74,37 @@
                 }
 
                 let {
-                    analyzedInstructions,
                     instructions,
-                    extendedIngredients,
-                    aggregateLikes,
-                    readyInMinutes,
-                    image,
+                    ingredients,
+                    popularity,
+                    prepTime,
+                    image_url,
                     title,
                     vegetarian,
                     vegan,
                     glutenFree,
-                    servings
-                } = response.data.recipe;
+                    num_of_dishes
+                } = response.data;
 
-                let _instructions = analyzedInstructions
-                    .map((fstep) => {
-                        fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-                        return fstep.steps;
-                    })
-                    .reduce((a, b) => [...a, ...b], []);
+                let _instructions = instructions
+                    // .map((fstep) => {
+                    //     fstep.steps[0].step = fstep.name + fstep.steps[0].step;
+                    //     return fstep.steps;
+                    // })
+                    // .reduce((a, b) => [...a, ...b], []);
 
                 let _recipe = {
                     instructions,
                     _instructions,
-                    analyzedInstructions,
-                    extendedIngredients,
-                    aggregateLikes,
-                    readyInMinutes,
-                    image,
+                    ingredients,
+                    popularity,
+                    prepTime,
+                    image_url,
                     title,
                     vegetarian,
                     vegan,
                     glutenFree,
-                    servings
+                    num_of_dishes
                 };
 
                 this.recipe = _recipe;

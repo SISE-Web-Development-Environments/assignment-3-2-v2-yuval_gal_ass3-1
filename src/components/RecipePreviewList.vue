@@ -5,56 +5,75 @@
       <slot></slot>
     </h3>
     <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
+      <b-col v-for="r in loadedRecipesArray" :key="r.id">
+        <PreviewRecipe class="PreviewRecipe" :recipe="r" />
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import RecipePreview from "./RecipePreview.vue";
-export default {
-  name: "RecipePreviewList",
-  components: {
-    RecipePreview
-  },
-  props: {
-    title: {
-      type: String,
-      required: true
-    }
-  },
-  data() {
-    return {
-      recipes: []
-    };
-  },
-  mounted() {
-    this.updateRecipes();
-  },
-  methods: {
-    async updateRecipes() {
-      try {
-        const response = await this.axios.get(
-          "https://test-for-3-2.herokuapp.com/recipes/random"
-        );
+    import PreviewRecipe from "./RecipePreview.vue";
+    import axios from 'axios'
 
-        // console.log(response);
-        const recipes = response.data.recipes;
-        this.recipes = [];
-        this.recipes.push(...recipes);
-        // console.log(this.recipes);
-      } catch (error) {
-        console.log(error);
-      }
+    async function getRecipesData () {
+        let randomIds
+        await axios
+            .get('http://localhost/recipes/get_random_recipe_id?numberToRetrieve=3', { withCredentials: true })
+            .then(response => (randomIds = response.data))
+            .then(response => console.log('The random IDs from axios: ' + response))
+        let recipeId
+        const recipesArray = []
+        for (recipeId in randomIds) {
+            await fetch('http://localhost/recipes/preview/recId/' + randomIds[recipeId], {
+                method: 'GET'
+            })
+                .then(response => {
+                    console.log(response)
+                    return response.json()
+                })
+                .then((jsonData) => {
+                    console.log(jsonData)
+                    recipesArray.push(jsonData)
+                })
+        }
+        return {
+            recipesArray: recipesArray,
+            length: recipesArray.length
+        }
     }
-  }
-};
+    export default {
+        name: "PreviewRecipeList",
+        components: {
+            PreviewRecipe
+        },
+        props: {
+            title: {
+                type: String,
+                required: true
+            }
+        },
+        data() {
+            return {
+                arrayLength: 0,
+                loadedRecipesArray: []
+            };
+        },
+        mounted() {
+            this.updateRecipes();
+        },
+        methods: {
+            async updateRecipes() {
+                const { recipesArray, length } = await getRecipesData()
+                this.arrayLength = length
+                this.loadedRecipesArray = recipesArray
+            }
+        }
+    };
 </script>
 
 <style lang="scss" scoped>
-.container {
-  min-height: 400px;
-}
+  .container {
+    min-height: 400px;
+  }
 </style>
