@@ -280,7 +280,7 @@
             async Register() {
                 try {
                     const response = await axios.post(
-                        "https://test-for-3-2.herokuapp.com/user/Register",
+                            this.$root.store.server_url + "user/Register",
                         {
                             username: this.form.username,
                             password: this.form.password

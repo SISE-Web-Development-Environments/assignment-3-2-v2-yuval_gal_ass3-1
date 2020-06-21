@@ -60,7 +60,7 @@
                 let response;
                 try {
                     response = await axios.get(
-                        'http://localhost/recipes/recipe_page/recId/'+this.$route.params.recipeId,
+                            this.$root.store.server_url + 'recipes/recipe_page/recId/'+this.$route.params.recipeId,
                         // {
                         //     params: { recId: this.$route.params.recipeId }
                         // }

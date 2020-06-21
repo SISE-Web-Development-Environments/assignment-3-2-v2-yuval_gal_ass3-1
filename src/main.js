@@ -78,6 +78,7 @@ const shared_data = {
     localStorage.removeItem("username");
     this.username = undefined;
   },
+  server_url: "http://localhost/",
 };
 console.log(shared_data);
 // Vue.prototype.$root.store = shared_data;
