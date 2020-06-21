@@ -29,8 +29,7 @@ export default {
   },
   methods: {
     isLoggedin() {
-      console.log("#######################################")
-      console.log(this.$cookies.get('ass_session'))
+      console.log("Testing 2")
       if(this.$cookies.get('ass_session'))
       {
         return true;

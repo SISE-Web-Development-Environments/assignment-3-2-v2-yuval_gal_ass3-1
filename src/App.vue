@@ -23,14 +23,13 @@ import VueCookies from "vue-cookies";
 export default {
   name: "App",
   methods: {
-    Logout() {
+    async Logout() {
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
       this.$cookies.remove('ass_session');
 
-
-      this.$router.push("/").catch(() => {
-        this.$forceUpdate();
+      this.$router.push({name: "main"}).catch(() => {
+        this.$router.go();
       });
     }
   }
