@@ -20,9 +20,9 @@
           <p>isVegan: {{ recipe.vegan }}</p>
           <p>isVegi: {{ recipe.vegetarian }}</p>
           <p>isGlutenFree: {{ recipe.glutenFree }}</p>
+          <p>Watched: {{ recipe.watched }}</p>
+          <p>Saved: {{ recipe.saved }}</p>
         </b-card-text>
-
-        <b-button :href="recipe.url" variant="primary">See the full Recipe</b-button>
       </b-card>
     </router-link>
   </div>

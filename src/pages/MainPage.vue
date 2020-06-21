@@ -3,7 +3,6 @@
     <h1 class="title">Main Page</h1>
     <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
     <router-link v-if="!isLoggedin()" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !isLoggedin() }}
     <RecipePreviewList
       title="Last Viewed Recipes"
       :class="{
