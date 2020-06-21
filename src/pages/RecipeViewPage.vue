@@ -3,6 +3,9 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
+        <labal v-if="recipe.watchedRecipe"> <img src="https://img.icons8.com/bubbles/50/000000/eye-checked.png"/>
+          You already Watched this Recipe </labal>
+        <labal v-if="recipe.savedRecipe"> <img class="my-icon" src="https://img.icons8.com/bubbles/50/000000/likes-folder.png"/> You already Saved this Recipe </labal>
         <img :src="recipe.image_url" class="center" />
       </div>
       <div class="recipe-body">
@@ -18,6 +21,7 @@
               <labal v-if="recipe.vegetarian"> <img class="my-icon" v-if="recipe.vegetarian" src="https://img.icons8.com/dusk/64/000000/vegetarian-food.png"/> Vegetarian </labal>
               <labal v-if="recipe.vegan"> <img class="my-icon" v-if="recipe.vegan" src="https://img.icons8.com/dusk/64/000000/natural-food.png"/> Vegan </labal>
               <labal v-if="recipe.glutenFree"> <img class="my-icon" v-if="recipe.glutenFree" src="https://img.icons8.com/officel/16/000000/no-gluten.png"/> Gluten-free </labal>
+
             </div>
           </div>
         </div>
@@ -60,7 +64,7 @@
                 let response;
                 try {
                     response = await axios.get(
-                        'http://localhost/recipes/recipe_page/recId/'+this.$route.params.recipeId,
+                            'http://localhost/recipes/recipe_page/recId/'+this.$route.params.recipeId,
                         // {
                         //     params: { recId: this.$route.params.recipeId }
                         // }
@@ -83,7 +87,9 @@
                     vegetarian,
                     vegan,
                     glutenFree,
-                    num_of_dishes
+                    num_of_dishes,
+                    watchedRecipe,
+                    savedRecipe
                 } = response.data;
 
                 let _instructions = instructions
@@ -104,7 +110,9 @@
                     vegetarian,
                     vegan,
                     glutenFree,
-                    num_of_dishes
+                    num_of_dishes,
+                    watchedRecipe,
+                    savedRecipe
                 };
 
                 this.recipe = _recipe;

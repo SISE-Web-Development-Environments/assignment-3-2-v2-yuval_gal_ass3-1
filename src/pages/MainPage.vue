@@ -2,13 +2,12 @@
   <div class="container">
     <h1 class="title">Main Page</h1>
     <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
+    <router-link v-if="!isLoggedin()" to="/login" tag="button">You need to Login to vue this</router-link>
     <RecipePreviewList
       title="Last Viewed Recipes"
       :class="{
         RandomRecipes: true,
-        blur: !$root.store.username,
+        blur: !isLoggedin(),
         center: true
       }"
       disabled
@@ -26,6 +25,19 @@ import RecipePreviewList from "../components/RecipePreviewList";
 export default {
   components: {
     RecipePreviewList
+  },
+  methods: {
+    isLoggedin() {
+      console.log("Testing 2")
+      if(this.$cookies.get('ass_session'))
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
   }
 };
 </script>
