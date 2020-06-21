@@ -18,12 +18,16 @@
 </template>
 
 <script>
+import VueCookies from "vue-cookies";
+
 export default {
   name: "App",
   methods: {
     Logout() {
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
+      this.$cookies.remove('ass_session');
+
 
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
