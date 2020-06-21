@@ -2,13 +2,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-
 import routes from "./routes";
 import VueRouter from "vue-router";
-Vue.use(VueRouter);
-const router = new VueRouter({
-  routes,
-});
+import VueCookies from "vue-cookies"
 
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
@@ -49,7 +45,10 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
+Vue.use(VueRouter);
+const router = new VueRouter({
+  routes,
+});
 // Add a response interceptor
 axios.interceptors.response.use(
   function(response) {
@@ -65,7 +64,8 @@ axios.interceptors.response.use(
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
-
+Vue.use(VueCookies)
+axios.defaults.withCredentials = true
 const shared_data = {
   username: localStorage.username,
   login(username) {
