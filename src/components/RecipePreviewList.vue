@@ -19,13 +19,13 @@
     async function getRecipesData () {
         let randomIds
         await axios
-            .get(this.$root.store.server_url + 'recipes/get_random_recipe_id?numberToRetrieve=3', { withCredentials: true })
+            .get( 'http://localhost/recipes/get_random_recipe_id?numberToRetrieve=3', { withCredentials: true })
             .then(response => (randomIds = response.data))
             .then(response => console.log('The random IDs from axios: ' + response))
         let recipeId
         const recipesArray = []
         for (recipeId in randomIds) {
-            await fetch(this.$root.store.server_url + 'recipes/preview/recId/' + randomIds[recipeId], {
+            await fetch('http://localhost/recipes/preview/recId/' + randomIds[recipeId], {
                 method: 'GET'
             })
                 .then(response => {

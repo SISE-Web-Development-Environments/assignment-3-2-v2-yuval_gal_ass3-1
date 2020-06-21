@@ -280,7 +280,7 @@
             async Register() {
                 try {
                     const response = await axios.post(
-                            this.$root.store.server_url + "user/Register",
+                            "http://localhost/user/Register",
                         {
                             username: this.form.username,
                             password: this.form.password
