@@ -44,6 +44,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   /*color: #2c3e50;*/
   background-image: url("./assets/marble-background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 100vh;
 }
 

@@ -4,7 +4,7 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <b-row>
+    <b-row md="3">
       <b-col v-for="(r, index) in loadedRecipesArray" :key="index">
         <PreviewRecipe class="PreviewRecipe" :recipe="r" />
       </b-col>
@@ -74,5 +74,13 @@
 <style lang="scss" scoped>
   .container {
     min-height: 400px;
+  }
+  .row{
+    width: 100%;
+    height: 10%;
+  }
+  .col{
+    width: 100%;
+    height: 10%;
   }
 </style>

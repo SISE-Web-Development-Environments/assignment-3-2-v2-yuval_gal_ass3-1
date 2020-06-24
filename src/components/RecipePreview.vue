@@ -6,22 +6,21 @@
         class="recipe-preview"
     >
       <b-card
+          :overlay="overlay"
           :title="recipe.title"
           :img-src="recipe.image_url"
           img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem;"
+          style="max-width: 30rem;"
           class="mb-2 preview"
       >
         <b-card-text>
-          <p>prepTime: {{ recipe.prepTime }}</p>
-          <p>popularity: {{ recipe.popularity }}</p>
-          <p>isVegan: {{ recipe.vegan }}</p>
-          <p>isVegi: {{ recipe.vegetarian }}</p>
-          <p>isGlutenFree: {{ recipe.glutenFree }}</p>
-          <p>Watched: {{ recipe.watched }}</p>
-          <p>Saved: {{ recipe.saved }}</p>
+          It will take you about {{ recipe.prepTime }} to prepare this dish
+<!--          isVegan: {{ recipe.vegan }}-->
+<!--          isVegi: {{ recipe.vegetarian }}-->
+<!--          isGlutenFree: {{ recipe.glutenFree }}-->
+<!--          popularity: {{ recipe.popularity }}-->
+<!--          Watched: {{ recipe.watched }}-->
+<!--          Saved: {{ recipe.saved }}-->
         </b-card-text>
       </b-card>
     </router-link>
@@ -29,11 +28,52 @@
 </template>
 
 <script>
+
     export default {
-        name: 'RecipePreview',
-        props: {
-            recipe: Object
+      name: 'RecipePreview',
+      props: {
+          recipe: Object,
+      },
+      data()
+      {
+        return {
+            overlay: Boolean
         }
+      },
+      mounted() {
+        this.$nextTick(function() {
+          window.addEventListener('resize', this.getWindowWidth);
+          // window.addEventListener('resize', this.getWindowHeight);
+          //Init
+          this.getWindowWidth()
+          // this.getWindowHeight()
+        })
+     },
+      methods: {
+        resizeView() {
+
+        },
+        getWindowWidth(event) {
+            let windowWidth = document.documentElement.clientWidth;
+            if(windowWidth < 700)
+            {
+                this.overlay = true;
+                console.log("width less than 700 " + this.overlay)
+            }
+            else
+            {
+                this.overlay = false;
+            }
+        }
+        //
+        // getWindowHeight(event) {
+        //     this.windowHeight = document.documentElement.clientHeight;
+        // }
+      },
+      beforeDestroy() {
+          window.removeEventListener('resize', this.getWindowWidth);
+          // window.removeEventListener('resize', this.getWindowHeight);
+      }
     }
 </script>
 
