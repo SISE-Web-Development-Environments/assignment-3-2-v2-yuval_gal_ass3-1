@@ -3,7 +3,7 @@ module.exports = {
     devtool: "source-map"
   },
   devServer: {
-    host: "localhost"
+    host: "0.0.0.0"
   }
   // publicPath: process.env.NODE_ENV === "production" ? "/LAB12/" : "/"
 };

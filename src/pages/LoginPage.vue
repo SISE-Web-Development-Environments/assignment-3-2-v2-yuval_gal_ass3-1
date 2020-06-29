@@ -41,7 +41,7 @@
         variant="primary"
         style="width:100px;display:block;"
         class="mx-auto w-100"
-        >Login</b-button
+        @click="Login">Login</b-button
       >
       <div class="mt-2">
         Do not have an account yet?
@@ -104,7 +104,9 @@ export default {
         // this.$root.loggedIn = true;
         // console.log($root.store.login);
         this.$root.store.login(this.form.username);
-        this.$router.push("/");
+        this.$router.push({name: "main"}).catch(() => {
+            this.$router.go();
+        });
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;

@@ -37,7 +37,7 @@
       data()
       {
         return {
-            overlay: Boolean
+            overlay: false,
         }
       },
       mounted() {

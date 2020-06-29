@@ -6,9 +6,9 @@
       </div>
     </div>
     <div class="split right-side">
-      <div class="centered">
+      <div class="centered expand-left" >
 <!--        <router-link v-if="!isLoggedin()" to="/login" tag="button">You need to Login to vue this</router-link>-->
-        <Login v-if="!isLoggedin()" class="login"/>
+        <Login v-if="!isLoggedin()" @login="setLogin" class="login"/>
         <RecipePreviewList
         title="Last Viewed Recipes"
         v-if="isLoggedin()"
@@ -17,6 +17,7 @@
           blur: !isLoggedin(),
           center: true
         }"
+
         disabled
         />
       </div>
@@ -40,7 +41,7 @@ export default {
   methods: {
     isLoggedin() {
       console.log("Testing 2")
-      if(this.$cookies.get('ass_session'))
+      if(this.$cookies.get('ass_session') || this.isLoginAlready)
       {
         return true;
       }
@@ -48,6 +49,9 @@ export default {
       {
         return false;
       }
+    },
+    setLogin() {
+        this.$forceUpdate();
     }
   }
 };
