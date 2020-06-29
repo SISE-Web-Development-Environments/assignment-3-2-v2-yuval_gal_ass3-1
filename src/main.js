@@ -78,6 +78,19 @@ const shared_data = {
     localStorage.removeItem("username");
     this.username = undefined;
   },
+  isLoggedin() {
+    console.log("Testing 2")
+    if(Vue.$cookies.get('ass_session'))
+    {
+      console.log("true");
+      return true;
+    }
+    else
+    {
+      console.log("false");
+      return false;
+    }
+  },
 };
 console.log(shared_data);
 // Vue.prototype.$root.store = shared_data;

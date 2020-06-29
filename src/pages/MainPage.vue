@@ -8,13 +8,13 @@
     <div class="split right-side">
       <div class="centered expand-left" >
 <!--        <router-link v-if="!isLoggedin()" to="/login" tag="button">You need to Login to vue this</router-link>-->
-        <Login v-if="!isLoggedin()" @login="setLogin" class="login"/>
+        <Login v-if="!$root.store.isLoggedin" @login="setLogin" class="login"/>
         <RecipePreviewList
         title="Last Viewed Recipes"
-        v-if="isLoggedin()"
+        v-if="$root.store.isLoggedin()"
         :class="{
           RandomRecipes: true,
-          blur: !isLoggedin(),
+          blur: !$root.store.isLoggedin,
           center: true
         }"
 
@@ -39,17 +39,7 @@ export default {
     RecipePreviewList
   },
   methods: {
-    isLoggedin() {
-      console.log("Testing 2")
-      if(this.$cookies.get('ass_session') || this.isLoginAlready)
-      {
-        return true;
-      }
-      else
-      {
-        return false;
-      }
-    },
+
     setLogin() {
         this.$forceUpdate();
     }
