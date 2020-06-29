@@ -8,13 +8,13 @@
     <div class="split right-side">
       <div class="centered expand-left" >
 <!--        <router-link v-if="!isLoggedin()" to="/login" tag="button">You need to Login to vue this</router-link>-->
-        <Login v-if="!$root.store.isLoggedin" @login="setLogin" class="login"/>
+        <Login v-if="!$root.store.isLoggedin()" @login="setLogin" class="login"/>
         <RecipePreviewList
         title="Last Viewed Recipes"
         v-if="$root.store.isLoggedin()"
         :class="{
           RandomRecipes: true,
-          blur: !$root.store.isLoggedin,
+          blur: !$root.store.isLoggedin(),
           center: true
         }"
 
@@ -61,9 +61,9 @@ export default {
   height: 100%;
   width: 50%;
   position: fixed;
-  z-index: 1;
-  top: 0;
+  top: 60px;
   overflow-x: hidden;
+  overflow-y: hidden;
   padding-top: 20px;
 }
 
@@ -98,7 +98,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -60%);
   text-align: center;
 }
 .RandomRecipes {
