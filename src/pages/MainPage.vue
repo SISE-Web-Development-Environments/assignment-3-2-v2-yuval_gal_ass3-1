@@ -2,7 +2,7 @@
   <div class="container">
     <div class="split left-side">
       <div class="centered expand-left">
-        <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
+        <RecipePreviewList title="Random Recipes" class="RandomRecipes center" :url="randomUrl" />
       </div>
     </div>
     <div class="split right-side">
@@ -11,6 +11,7 @@
         <Login v-if="!$root.store.isLoggedin()" @login="setLogin" class="login"/>
         <RecipePreviewList
         title="Last Viewed Recipes"
+        :url="last_3_url"
         v-if="$root.store.isLoggedin()"
         :class="{
           RandomRecipes: true,
@@ -38,8 +39,13 @@ export default {
     Login,
     RecipePreviewList
   },
+  data() {
+      return {
+          randomUrl: 'http://localhost/recipes/get_random_recipe_id?numberToRetrieve=3',
+          last_3_url: 'http://localhost/profile/get_last_3_watched'
+      };
+  },
   methods: {
-
     setLogin() {
         this.$forceUpdate();
     }
