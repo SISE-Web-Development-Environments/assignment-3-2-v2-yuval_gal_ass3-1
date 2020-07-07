@@ -69,7 +69,7 @@
                         //     params: { recId: this.$route.params.recipeId }
                         // }
                     );
-                    console.log(response)
+                    // console.log(response)
                     if (response.status !== 200) this.$router.replace("/NotFound");
                 } catch (error) {
                     console.log("error.response.status", error.response.status);

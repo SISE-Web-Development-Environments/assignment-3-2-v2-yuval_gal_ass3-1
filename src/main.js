@@ -49,8 +49,6 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
 });
-
-
 // Add a response interceptor
 axios.interceptors.response.use(
   function(response) {
@@ -67,9 +65,6 @@ Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 Vue.use(VueCookies)
-
-
-
 axios.defaults.withCredentials = true
 const shared_data = {
   username: localStorage.username,
@@ -84,15 +79,15 @@ const shared_data = {
     this.username = undefined;
   },
   isLoggedin() {
-    console.log("Testing 2")
+    // console.log("Testing 2")
     if(Vue.$cookies.get('ass_session'))
     {
-      console.log("true");
+      // console.log("true");
       return true;
     }
     else
     {
-      console.log("false");
+      // console.log("false");
       return false;
     }
   },
@@ -106,7 +101,14 @@ router.beforeEach((to, from, next) => {
   {
     shared_data.logout();
   }
-  next();
+
+  if(to.meta.requireAuth && !Vue.$cookies.get("ass_session"))
+  {
+    next({ name: 'login' })
+  }
+  else{
+    next();
+  }
 });
 // Vue.prototype.$root.store = shared_data;
 

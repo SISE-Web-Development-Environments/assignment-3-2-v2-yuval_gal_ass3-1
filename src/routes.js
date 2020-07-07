@@ -26,6 +26,17 @@ const routes = [
     path: "/recipe/:recipeId",
     name: "recipe",
     component: () => import("./pages/RecipeViewPage"),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: "/user/favorites",
+    name: "MyFavorites",
+    component: () => import("./pages/Favorites"),
+    meta: {
+      requireAuth: true
+    }
   },
   {
     path: "*",

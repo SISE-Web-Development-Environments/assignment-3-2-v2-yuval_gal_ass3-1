@@ -9,6 +9,7 @@
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
       <span v-else >
+        <router-link :to="{ name: 'MyFavorites' }">Favorites</router-link>|
         Hello There {{ $root.store.username }}: <b-button
           type="submit"
           variant="primary"
