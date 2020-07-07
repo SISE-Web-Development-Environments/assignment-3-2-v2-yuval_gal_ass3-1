@@ -84,15 +84,15 @@ const shared_data = {
     this.username = undefined;
   },
   isLoggedin() {
-    console.log("Testing 2")
+    // console.log("Testing 2")
     if(Vue.$cookies.get('ass_session'))
     {
-      console.log("true");
+      // console.log("true");
       return true;
     }
     else
     {
-      console.log("false");
+      // console.log("false");
       return false;
     }
   },
@@ -106,7 +106,14 @@ router.beforeEach((to, from, next) => {
   {
     shared_data.logout();
   }
-  next();
+
+  if(to.meta.requireAuth && !Vue.$cookies.get("ass_session"))
+  {
+    next({ name: 'login' })
+  }
+  else{
+    next();
+  }
 });
 // Vue.prototype.$root.store = shared_data;
 
