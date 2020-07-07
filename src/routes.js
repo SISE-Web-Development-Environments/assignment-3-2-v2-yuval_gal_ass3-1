@@ -47,6 +47,14 @@ const routes = [
     }
   },
   {
+    path: "/user/personal",
+    name: "Personal",
+    component: () => import("./pages/PersonalPage"),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
     path: "*",
     name: "notFound",
     component: NotFound,
