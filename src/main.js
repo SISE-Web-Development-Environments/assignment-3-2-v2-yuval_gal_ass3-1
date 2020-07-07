@@ -49,8 +49,6 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
 });
-
-
 // Add a response interceptor
 axios.interceptors.response.use(
   function(response) {
@@ -67,9 +65,6 @@ Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 Vue.use(VueCookies)
-
-
-
 axios.defaults.withCredentials = true
 const shared_data = {
   username: localStorage.username,
