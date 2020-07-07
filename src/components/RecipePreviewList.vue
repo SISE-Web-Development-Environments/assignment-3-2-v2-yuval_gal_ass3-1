@@ -17,10 +17,10 @@
     import axios from 'axios'
     axios.defaults.withCredentials = true;
 
-    async function getRecipesData () {
+    async function getRecipesData (get_ids_url) {
         let randomIds
         await axios
-            .get( 'http://localhost/recipes/get_random_recipe_id?numberToRetrieve=3' )
+            .get(get_ids_url)
             .then(response => (randomIds = response.data))
             .then(response => console.log('The random IDs from axios: ' + response))
         let recipeId
@@ -50,6 +50,10 @@
             title: {
                 type: String,
                 required: true
+            },
+            url: {
+                type: String,
+                required: true
             }
         },
         data() {
@@ -63,7 +67,7 @@
         },
         methods: {
             async updateRecipes() {
-                const { recipesArray, length } = await getRecipesData()
+                const { recipesArray, length } = await getRecipesData(this.url);
                 this.arrayLength = length
                 this.loadedRecipesArray = recipesArray
             }

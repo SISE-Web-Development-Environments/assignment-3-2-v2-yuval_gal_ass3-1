@@ -49,6 +49,8 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
 });
+
+
 // Add a response interceptor
 axios.interceptors.response.use(
   function(response) {
@@ -65,6 +67,9 @@ Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 Vue.use(VueCookies)
+
+
+
 axios.defaults.withCredentials = true
 const shared_data = {
   username: localStorage.username,
@@ -93,6 +98,16 @@ const shared_data = {
   },
 };
 console.log(shared_data);
+
+router.beforeEach((to, from, next) => {
+
+  //Validate the cookie is still valid, if not logout the last user
+  if(!Vue.$cookies.get("ass_session"))
+  {
+    shared_data.logout();
+  }
+  next();
+});
 // Vue.prototype.$root.store = shared_data;
 
 new Vue({
