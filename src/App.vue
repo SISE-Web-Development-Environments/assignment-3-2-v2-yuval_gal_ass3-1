@@ -8,10 +8,16 @@
         <router-link :to="{ name: 'register' }">Register</router-link>|
         <router-link :to="{ name: 'login' }">Login</router-link>|
       </span>
-      <span v-else>
-        Hello There {{ $root.store.username }}: <button @click="Logout">Logout</button>|
+      <span v-else >
+        Hello There {{ $root.store.username }}: <b-button
+          type="submit"
+          variant="primary"
+          class="logout-btn"
+          @click="Logout">Logout</b-button>
       </span>
+
     </div>
+
     <router-view />
   </div>
 </template>
@@ -22,10 +28,12 @@ import VueCookies from "vue-cookies";
 export default {
   name: "App",
   methods: {
-    async Logout() {
+    Logout() {
+      console.log("Logging Out");
       this.$root.store.logout();
       this.$root.toast("Logout", "User logged out successfully", "success");
       this.$cookies.remove('ass_session');
+
 
       this.$router.push({name: "main"}).catch(() => {
         this.$router.go();
@@ -36,13 +44,17 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/scss/form-style.scss";
+@import "src/scss/form-style.scss";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  /*color: #2c3e50;*/
+  background-image: url("./assets/marble-background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 100vh;
 }
 
@@ -57,5 +69,9 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.logout-btn {
+  cursor: pointer;
 }
 </style>
