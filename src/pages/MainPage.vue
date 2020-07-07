@@ -85,7 +85,7 @@ export default {
 }
 
 .login {
-  transform: translate(-50%, -50%)
+  transform: translate(-15% ,-50%)
 }
 
 /* If you want the content centered horizontally and vertically */
