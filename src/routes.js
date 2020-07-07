@@ -39,6 +39,14 @@ const routes = [
     }
   },
   {
+    path: "/user/family",
+    name: "Family",
+    component: () => import("./pages/FamilyPage"),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
     path: "*",
     name: "notFound",
     component: NotFound,

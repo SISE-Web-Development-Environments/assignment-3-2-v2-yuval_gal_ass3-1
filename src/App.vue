@@ -10,6 +10,7 @@
       </span>
       <span v-else >
         <router-link :to="{ name: 'MyFavorites' }">Favorites</router-link>|
+        <router-link :to="{ name: 'Family' }">Family</router-link>|
         Hello There {{ $root.store.username }}: <b-button
           type="submit"
           variant="primary"
