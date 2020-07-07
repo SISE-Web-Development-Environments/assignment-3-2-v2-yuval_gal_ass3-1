@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Favorites</h1>
+    <h1>Family Recipes</h1>
     <RecipePreviewList
         title=""
         :url="url"
@@ -12,10 +12,10 @@
 <script>
     import RecipePreviewList from "../components/RecipePreviewList";
     export default {
-      name: "Favorites",
+      name: "FamilyPage",
       data() {
           return {
-              url: 'http://localhost/profile/favorites'
+              url: 'http://localhost/profile/family_recipes'
           }
       },
       components: {
