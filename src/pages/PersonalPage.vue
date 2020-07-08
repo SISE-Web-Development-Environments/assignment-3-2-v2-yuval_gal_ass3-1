@@ -1,16 +1,21 @@
 <template>
   <div>
     <h1>Own Recipes</h1>
+    <div class="down-sctn">
+      <button @click.prevent="showPanel" class="add-btn">
+        Add Another Recipe
+      </button>
+    </div>
 
+    <div class="up-sctn">
     <RecipePreviewList
         title=""
         :url="url"
         v-if="$root.store.isLoggedin()"
     />
     <slideout-panel></slideout-panel>
-    <button @click.prevent="showPanel">
-      Add Another Recipe
-    </button>
+    </div>
+
   </div>
 </template>
 
@@ -43,5 +48,14 @@
 </script>
 
 <style scoped>
+  .down-sctn{
+    text-align: right;
 
+  }
+.add-btn {
+  z-index: 2;
+  left: 0;
+  transform: translate(-100%, -100%);
+
+}
 </style>
