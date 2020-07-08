@@ -55,6 +55,12 @@ const routes = [
     }
   },
   {
+    //TODO: Should be removed before submitting the assignment
+    path: "/test",
+    name: "test",
+    component: () => import("./pages/test"),
+  },
+  {
     path: "*",
     name: "notFound",
     component: NotFound,
