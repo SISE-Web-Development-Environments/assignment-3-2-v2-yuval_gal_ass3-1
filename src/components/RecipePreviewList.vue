@@ -4,6 +4,9 @@
       {{ title }}
       <slot></slot>
     </h3>
+    <div class="spinner-div">
+      <b-spinner v-if="arrayLength === 0" variant="secondary" type="grow" label="Spinning"></b-spinner>
+    </div>
     <b-row md="3">
       <b-col v-for="(r, index) in loadedRecipesArray" :key="index">
         <PreviewRecipe class="PreviewRecipe" :recipe="r" />
@@ -85,6 +88,9 @@
                 required: true
             }
         },
+        // computed: {
+        //
+        // },
         data() {
             return {
                 arrayLength: 0,
@@ -115,5 +121,10 @@
   .col{
     width: 100%;
     height: 10%;
+  }
+  .spinner-div{
+    top: 0;
+    position: fixed;
+    transform: translate(800%, 500%);
   }
 </style>
