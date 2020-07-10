@@ -68,8 +68,6 @@ export default {
   width: 50%;
   position: fixed;
   top: 60px;
-  overflow-x: hidden;
-  overflow-y: hidden;
   padding-top: 20px;
 }
 

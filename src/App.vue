@@ -1,25 +1,24 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
-      <router-link :to="{ name: 'search' }">Search</router-link>|
+    <div id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
+      <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'main' }">Home Page</router-link>
+      <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'search' }">Search</router-link>
       <span v-if="!$root.store.username">
-        Guest:
-        <router-link :to="{ name: 'register' }">Register</router-link>|
-        <router-link :to="{ name: 'login' }">Login</router-link>|
+         Hello Guest:
+        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'register' }">Register</router-link>
+        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'login' }">Login</router-link>
       </span>
       <span v-else >
-        <router-link :to="{ name: 'MyFavorites' }">Favorites</router-link>|
-        <router-link :to="{ name: 'Family' }">Family</router-link>|
+        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'MyFavorites' }">Favorites</router-link>
+        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'Family' }">Family</router-link>
+
         Hello There {{ $root.store.username }}: <b-button
           type="submit"
           variant="primary"
           class="logout-btn"
           @click="Logout">Logout</b-button>
       </span>
-
     </div>
-
     <router-view />
   </div>
 </template>
@@ -61,16 +60,16 @@ export default {
 }
 
 #nav {
-  padding: 30px;
+  padding: 25px;
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #3b8ee2;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #6bacf8;
 }
 
 .logout-btn {

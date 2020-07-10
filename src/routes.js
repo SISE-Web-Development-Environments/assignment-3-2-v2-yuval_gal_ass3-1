@@ -27,7 +27,7 @@ const routes = [
     name: "recipe",
     component: () => import("./pages/RecipeViewPage"),
     meta: {
-      requireAuth: true
+      requireAuth: false
     }
   },
   {
