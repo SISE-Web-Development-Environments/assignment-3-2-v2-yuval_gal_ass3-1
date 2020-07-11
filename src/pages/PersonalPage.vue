@@ -35,7 +35,7 @@
           this.$showPanel({
             component: 'recipeForm',
             height: 600,
-            width: 600,
+            width: 900,
             openOn: this.openOn
           });
         }
