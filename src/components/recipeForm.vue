@@ -1,6 +1,18 @@
 <template>
   <div class="my-cntnr bg-gra-01 page-wrapper p-t">
-    <div class="wrapper wrapper--w780">
+    <b-alert
+      class="mt-2"
+      v-if="submitError"
+      variant="warning"
+      dismissible
+      show
+    >
+      {{ submitError }}
+    </b-alert>
+    <div class="wrapper wrapper--w780" ref="formView">
+      <div class="form-title">
+        <h1 >Add a new Recipe</h1>
+      </div>
       <div class="card card-3">
         <div class="card-body">
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -12,7 +24,7 @@
               <b-form-input
                   id="input-1"
                   v-model="recipe.title"
-                  type="email"
+                  type="text"
                   required
                   placeholder="Enter Name"
               ></b-form-input>
@@ -21,7 +33,8 @@
             <b-form-group id="input-group-2" label="Image URL" label-for="input-2">
               <b-form-input
                   id="input-2"
-                  v-model="recipe.name"
+                  v-model="recipe.image_url"
+                  type="text"
                   required
                   placeholder="Enter URL"
               ></b-form-input>
@@ -33,7 +46,7 @@
               id="input-group-3"
               :label="instruction.name"
               v-for="(instruction, index) in recipe.instructions"
-              :key="index"
+              :key="'instr' + index"
               label-for="input-3">
               <b-form-input
                 :id="instruction.name"
@@ -48,11 +61,11 @@
             <b-form-group
               id="ingredients-group"
               v-for="(ingredient, index) in recipe.ingredients"
-              :key="index"
+              :key="'ing' + index"
               label-for="input-3">
               <b-row class="my-1">
                 <b-col sm="9">
-                  Name:
+                  Ingredient Name:
                   <b-form-input
                     :id="ingredient.name"
                     v-model="ingredient.name"
@@ -84,8 +97,54 @@
               </b-form-checkbox-group>
             </b-form-group>
 
-            <b-button type="submit" variant="primary">Submit</b-button>
-            <b-button type="reset" variant="danger">Reset</b-button>
+            <b-form-group
+              id="prep-time"
+              label="How long would it take to prepare this dish? (min)"
+              label-for="prep-time-inpt"
+            >
+              <b-form-input
+                id="prep-time-inpt"
+                v-model="recipe.prepTime"
+                type="number"
+                step="0.5"
+                required
+                min="0"
+                placeholder="Enter Time"
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group
+              id="num-of-dishes"
+              label="How many servings?"
+              label-for="num-dishes-inpt">
+              <b-form-input
+                id="num-dishes-inpt"
+                v-model="recipe.num_of_dishes"
+                type="number"
+                min="1"
+                step="1"
+                required
+                placeholder="Enter number of servings"
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group
+              id="url-link"
+              label="Extra Details url"
+              label-for="url-link-inpt"
+            >
+              <b-form-input
+                id="url-link-inpt"
+                v-model="recipe.url"
+                type="text"
+                placeholder="Enter URL"
+              ></b-form-input>
+            </b-form-group>
+
+            <div class="btns-grp">
+              <b-button class="form-btns" id="sbmt-btn" type="submit" variant="primary">Submit</b-button>
+              <b-button class="form-btns" id="rst-btn" type="reset" variant="danger">Reset</b-button>
+            </div>
           </b-form>
         </div>
       </div>
@@ -94,6 +153,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default {
     data() {
       return {
@@ -102,10 +162,11 @@
           image_url: '',
           prepTime: '',
           popularity: 0,
+          num_of_dishes: 1,
           checked: [],
           instructions: [
             {
-              name: 'Step0',
+              name: 'Step1',
               instruction: ''
             }
           ],
@@ -115,15 +176,17 @@
                   count: null
               }
           ],
+          url: '',
         },
-        show: true
+        show: true,
+        submitError: undefined
       }
     },
     methods: {
       addInstruction() {
         let nextNum = this.recipe.instructions.length;
         this.recipe.instructions.push({
-            name: 'Step'+nextNum,
+            name: 'Step'+(nextNum+1),
             instruction: ''
         });
       },
@@ -137,12 +200,61 @@
               count: null
           });
       },
+      scrollToTop() {
+          window.scrollTo(0,0);
+      },
       removeIngredient() {
           this.recipe.ingredients.pop();
       },
-      onSubmit(evt) {
+      async onSubmit(evt) {
           evt.preventDefault()
-          alert(JSON.stringify(this.form))
+
+          //Getting the details about the vegan/vegetarian/glutenFree
+          for (let btn in this.recipe.checked)
+          {
+              if(this.recipe.checked[btn] === "vegan")
+              {
+                  this.recipe.vegan = true;
+              }
+              if(this.recipe.checked[btn] === "vegetarian")
+              {
+                  this.recipe.vegetarian = true;
+              }
+              if(this.recipe.checked[btn] === "glutenFree")
+              {
+                  this.recipe.glutenFree = true;
+              }
+          }
+
+          if(!this.recipe.vegan)
+          {
+              this.recipe.vegan = false;
+          }
+          if(!this.recipe.vegetarian)
+          {
+              this.recipe.vegetarian = false;
+          }
+          if(!this.recipe.glutenFree)
+          {
+              this.recipe.glutenFree = false;
+          }
+          delete this.recipe.checked;
+          //creating the right instructions array
+          this.recipe.instructions = this.recipe.instructions.map((value, index, array) => {
+              return value.name + ": " + value.instruction;
+          })
+          console.log(JSON.stringify(this.recipe))
+          try{
+              await axios.post('http://localhost/profile/add_recipe/', this.recipe);
+          }
+          catch (err) {
+            console.log(err.response);
+            this.submitError = err.response.data.message;
+            this.onReset(evt);
+            return;
+          }
+          this.onReset(evt)
+          this.$emit('closePanel')
       },
       onReset(evt) {
         evt.preventDefault()
@@ -153,7 +265,7 @@
         this.recipe.checked = []
         this.recipe.instructions = [
               {
-                  name: 'Step0',
+                  name: 'Step1',
                   instruction: ''
               }
           ],
@@ -163,10 +275,17 @@
                   count: null
               }
           ]
+        delete this.recipe.vegan;
+        delete this.recipe.vegetarian;
+        delete this.recipe.glutenFree;
+
+        this.recipe.num_of_dishes = 1;
+        this.recipe.url = '';
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {
           this.show = true
+          this.$refs.formView.scrollTop = 0;
         })
       }
     }
@@ -193,7 +312,7 @@
     min-height: 100vh;
   }
   .p-t {
-    padding-top: 100px;
+    padding-top: 20px;
   }
 
   .bg-gra-01 {
@@ -275,4 +394,21 @@
     }
   }
 
+  .form-title {
+    text-align: center;
+    padding-bottom: 10px;
+  }
+
+  /*.form-btns{*/
+  /*  margin: 0 5px;*/
+  /*}*/
+
+  #sbmt-btn {
+    left: 0;
+  }
+
+  #rst-btn {
+    position: absolute;
+    right: 65px;
+  }
 </style>
