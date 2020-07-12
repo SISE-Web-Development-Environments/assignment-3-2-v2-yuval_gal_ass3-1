@@ -5,7 +5,9 @@
       {{ title }}
     </h1>
     <button class="button" style="vertical-align:middle" v-if="rand" @click="randomize"><span>More </span></button>
-    <slot></slot>
+    <div class="spinner-div">
+      <b-spinner v-if="arrayLength === 0" variant="secondary" type="grow" label="Spinning"></b-spinner>
+    </div>
     <b-row md="3">
       <b-col v-for="(r, index) in loadedRecipesArray" :key="index">
         <PreviewRecipe class="PreviewRecipe" :recipe="r" />
@@ -151,5 +153,10 @@
   .button:hover span:after {
     opacity: 1;
     right: 0;
+  }
+  .spinner-div{
+    top: 0;
+    position: fixed;
+    transform: translate(800%, 500%);
   }
 </style>
