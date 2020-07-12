@@ -279,6 +279,7 @@
             },
             async Register() {
                 try {
+                    this.form.submitError = undefined;
                     const response = await axios.post(
                             "http://localhost/user/Register",
                         {
@@ -298,6 +299,7 @@
                     console.log(err);
                     console.log(err.response);
                     this.form.submitError = err.response.data.message;
+                    console.log(this.form.submitError)
                 }
             },
             onRegister() {
@@ -318,7 +320,8 @@
                     password: "",
                     profile: "",
                     confirmedPassword: "",
-                    email: ""
+                    email: "",
+                    submitError: undefined
                 };
                 this.$nextTick(() => {
                     this.$v.$reset();

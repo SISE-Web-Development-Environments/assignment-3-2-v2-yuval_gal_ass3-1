@@ -1,4 +1,5 @@
 <template>
+  <div>
   <div class="container">
     <div class="split left-side">
       <div class="centered expand-left">
@@ -24,6 +25,8 @@
       </div>
     </div>
   </div>
+  </div>
+
 </template>
 
 <script>
@@ -104,4 +107,8 @@ export default {
   margin: 10px 0 10px;
   width: 100%;
 }
+  img{
+    height: 100px;
+    width: 100px;
+  }
 </style>
