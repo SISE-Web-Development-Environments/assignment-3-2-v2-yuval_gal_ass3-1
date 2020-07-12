@@ -34,9 +34,9 @@
       <div class="column">
         <div class="card">
           <div class="container">
-            <h2>Gal</h2>
+            <h2>Gal Rosenthal</h2>
             <p class="title">Information Systems Engineer</p>
-            <p>ybene@post.bgu.ac.il</p>
+            <p>rosengal@post.bgu.ac.il</p>
           </div>
         </div>
       </div>
