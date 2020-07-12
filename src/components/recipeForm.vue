@@ -239,6 +239,8 @@
               this.recipe.glutenFree = false;
           }
           delete this.recipe.checked;
+
+          this.recipe.prepTime = this.recipe.prepTime + " min";
           //creating the right instructions array
           this.recipe.instructions = this.recipe.instructions.map((value, index, array) => {
               return value.name + ": " + value.instruction;
@@ -254,7 +256,7 @@
             return;
           }
           this.onReset(evt)
-          this.$emit('closePanel')
+          this.$emit('closePanel', "success")
       },
       onReset(evt) {
         evt.preventDefault()

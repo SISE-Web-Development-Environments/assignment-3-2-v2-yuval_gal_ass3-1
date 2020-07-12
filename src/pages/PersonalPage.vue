@@ -6,7 +6,11 @@
         Add Another Recipe
       </button>
     </div>
-
+    <b-modal ref="my-modal" hide-footer hide-header size="sm" body-bg-variant="success">
+      <div class="d-block text-center">
+        <h5>Recipe added successfully</h5>
+      </div>
+    </b-modal>
     <div class="up-sctn">
     <RecipePreviewList
         title=""
@@ -32,12 +36,25 @@
       },
       methods: {
         showPanel() {
-          this.$showPanel({
+          const panelResult = this.$showPanel({
             component: 'recipeForm',
             height: 600,
             width: 900,
             openOn: this.openOn
           });
+
+          panelResult.promise
+            .then(result => {
+                console.log(result);
+                if( result === "success")
+                {
+                    this.$refs['my-modal'].toggle('#toggle-btn')
+                    setTimeout(() => {
+                        this.$refs['my-modal'].toggle('#toggle-btn');
+                        this.$router.go();
+                    }, 1000)
+                }
+            })
         }
       },
 
