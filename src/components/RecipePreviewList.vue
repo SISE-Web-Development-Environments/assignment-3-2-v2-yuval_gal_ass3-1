@@ -2,8 +2,9 @@
   <b-container>
     <h3>
       {{ title }}
-      <slot></slot>
     </h3>
+    <button v-if="rand" @click="randomize">More</button>
+    <slot></slot>
     <b-row md="3">
       <b-col v-for="(r, index) in loadedRecipesArray" :key="index">
         <PreviewRecipe class="PreviewRecipe" :recipe="r" />
@@ -83,6 +84,9 @@
             url: {
                 type: String,
                 required: true
+            },
+            rand: {
+                type: String
             }
         },
         data() {
@@ -99,6 +103,11 @@
                 const { recipesArray, length } = await getRecipesData(this.url);
                 this.arrayLength = length
                 this.loadedRecipesArray = recipesArray
+            },
+            randomize(){
+                if(this.rand){
+                    this.updateRecipes();
+                }
             }
         }
     };

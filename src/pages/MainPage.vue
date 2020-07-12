@@ -3,7 +3,8 @@
   <div class="container">
     <div class="split left-side">
       <div class="centered expand-left">
-        <RecipePreviewList title="Random Recipes" class="RandomRecipes center" :url="randomUrl" />
+        <br>
+        <RecipePreviewList ref="childComponent" title="Explore these recipes" class="RandomRecipes center" :url="randomUrl" :rand="true"/>
       </div>
     </div>
     <div class="split right-side">
@@ -26,7 +27,6 @@
     </div>
   </div>
   </div>
-
 </template>
 
 <script>
@@ -40,7 +40,8 @@ export default {
   data() {
       return {
           randomUrl: 'http://localhost/recipes/get_random_recipe_id?numberToRetrieve=3',
-          last_3_url: 'http://localhost/profile/get_last_3_watched'
+          last_3_url: 'http://localhost/profile/get_last_3_watched',
+          toRand: false
       };
   },
   methods: {
