@@ -12,6 +12,7 @@
       </span>
       <span v-else >
         <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'MyFavorites' }">Favorites</router-link>
+        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'PersonalRecipes' }">Personal</router-link>
         <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'Family' }">Family</router-link>
 
         Hello There {{ $root.store.username }}: <b-button

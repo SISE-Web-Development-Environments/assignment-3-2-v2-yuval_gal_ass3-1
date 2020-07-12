@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Family Recipes</h1>
+    <h1>My Family Recipes</h1>
     <RecipePreviewList
         title=""
         :url="url"
@@ -25,5 +25,7 @@
 </script>
 
 <style scoped>
-
+  h1{
+    text-align: center;
+  }
 </style>

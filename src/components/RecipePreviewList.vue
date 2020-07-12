@@ -1,11 +1,10 @@
 <template>
   <div>
   <b-container>
-    <h3>
+    <h1>
       {{ title }}
-    </h3>
+    </h1>
     <button class="button" style="vertical-align:middle" v-if="rand" @click="randomize"><span>More </span></button>
-
     <slot></slot>
     <b-row md="3">
       <b-col v-for="(r, index) in loadedRecipesArray" :key="index">
@@ -26,21 +25,10 @@
         await axios
             .get(get_ids_url)
             .then(response => {
-                // console.log("RecipePreviewList: axios response:");
-                // console.log(response);
+                console.log(response)
                 randomIds = response.data;
                 return randomIds;
-            })
-            // .then(response => {
-            //     console.log("Second then:" + response)
-            //     if(Number.isInteger(response[0])){
-            //         console.log('Integer: The random IDs from axios: ' + response)
-            //     }
-            //     else
-            //     {
-            //         console.log('Object: The random IDs from axios: ' + response.id)
-            //     }
-            // })
+            }).catch(response=> console.log("no recipes"))
         let recipeId
         const recipesArray = []
         for (recipeId in randomIds) {
@@ -52,7 +40,6 @@
                         return response.data
                     })
                     .then((jsonData) => {
-                        // console.log(jsonData)
                         recipesArray.push(jsonData)
                     })
             }
@@ -60,11 +47,9 @@
             {
                 await axios('http://localhost/recipes/preview/recId/' + randomIds[recipeId].id)
                     .then(response => {
-                        // console.log(response)
                         return response.data
                     })
                     .then((jsonData) => {
-                        // console.log(jsonData)
                         recipesArray.push(jsonData)
                     })
             }
@@ -95,7 +80,8 @@
         data() {
             return {
                 arrayLength: 0,
-                loadedRecipesArray: []
+                loadedRecipesArray: [],
+                errors: []
             };
         },
         mounted() {
