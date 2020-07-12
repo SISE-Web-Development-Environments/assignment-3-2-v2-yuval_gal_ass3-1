@@ -18,6 +18,11 @@ const routes = [
     component: () => import("./pages/LoginPage"),
   },
   {
+    path: "/about",
+    name: "about",
+    component: () => import("./pages/AboutPage"),
+  },
+  {
     path: "/search",
     name: "search",
     component: () => import("./pages/SearchPage"),
@@ -27,13 +32,21 @@ const routes = [
     name: "recipe",
     component: () => import("./pages/RecipeViewPage"),
     meta: {
-      requireAuth: true
+      requireAuth: false
     }
   },
   {
     path: "/user/favorites",
     name: "MyFavorites",
     component: () => import("./pages/Favorites"),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: "/user/personal",
+    name: "PersonalRecipes",
+    component: () => import("./pages/PersonalRecipes"),
     meta: {
       requireAuth: true
     }

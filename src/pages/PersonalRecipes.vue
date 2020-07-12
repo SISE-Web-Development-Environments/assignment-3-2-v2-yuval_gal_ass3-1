@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>My Favorites</h1>
+    <h1>My Personal Recipes</h1>
     <RecipePreviewList
         title=""
         :url="url"
@@ -12,15 +12,15 @@
 <script>
     import RecipePreviewList from "../components/RecipePreviewList";
     export default {
-      name: "Favorites",
-      data() {
-          return {
-              url: 'http://localhost/profile/favorites'
-          }
-      },
-      components: {
-          RecipePreviewList
-      }
+        name: "PersonalRecipes",
+        data() {
+            return {
+                url: 'http://localhost/profile/personal_recipes'
+            }
+        },
+        components: {
+            RecipePreviewList
+        }
     }
 </script>
 

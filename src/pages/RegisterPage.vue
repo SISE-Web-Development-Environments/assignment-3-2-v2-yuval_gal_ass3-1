@@ -279,11 +279,17 @@
             },
             async Register() {
                 try {
+                    this.form.submitError = undefined;
                     const response = await axios.post(
                             "http://localhost/user/Register",
                         {
                             username: this.form.username,
-                            password: this.form.password
+                            password: this.form.password,
+                            firstName: this.form.firstName,
+                            lastName: this.form.lastName,
+                            email: this.form.email,
+                            profilePic: this.form.profile,
+                            country: this.form.country
                         }
                     );
                     this.$router.push("/login");
@@ -293,6 +299,7 @@
                     console.log(err);
                     console.log(err.response);
                     this.form.submitError = err.response.data.message;
+                    console.log(this.form.submitError)
                 }
             },
             onRegister() {
@@ -313,7 +320,8 @@
                     password: "",
                     profile: "",
                     confirmedPassword: "",
-                    email: ""
+                    email: "",
+                    submitError: undefined
                 };
                 this.$nextTick(() => {
                     this.$v.$reset();

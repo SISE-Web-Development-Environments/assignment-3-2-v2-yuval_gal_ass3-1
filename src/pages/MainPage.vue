@@ -1,8 +1,10 @@
 <template>
+  <div>
   <div class="container">
     <div class="split left-side">
       <div class="centered expand-left">
-        <RecipePreviewList title="Random Recipes" class="RandomRecipes center" :url="randomUrl" />
+        <br>
+        <RecipePreviewList ref="childComponent" title="Explore these recipes" class="RandomRecipes center" :url="randomUrl" :rand="true"/>
       </div>
     </div>
     <div class="split right-side">
@@ -23,11 +25,7 @@
         />
       </div>
     </div>
-    <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div>-->
+  </div>
   </div>
 </template>
 
@@ -42,7 +40,8 @@ export default {
   data() {
       return {
           randomUrl: 'http://localhost/recipes/get_random_recipe_id?numberToRetrieve=3',
-          last_3_url: 'http://localhost/profile/get_last_3_watched'
+          last_3_url: 'http://localhost/profile/get_last_3_watched',
+          toRand: false
       };
   },
   methods: {
@@ -68,8 +67,6 @@ export default {
   width: 50%;
   position: fixed;
   top: 60px;
-  overflow-x: hidden;
-  overflow-y: hidden;
   padding-top: 20px;
 }
 
@@ -111,4 +108,8 @@ export default {
   margin: 10px 0 10px;
   width: 100%;
 }
+  img{
+    height: 100px;
+    width: 100px;
+  }
 </style>

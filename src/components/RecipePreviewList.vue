@@ -1,9 +1,10 @@
 <template>
+  <div>
   <b-container>
-    <h3>
+    <h1>
       {{ title }}
-      <slot></slot>
-    </h3>
+    </h1>
+    <button class="button" style="vertical-align:middle" v-if="rand" @click="randomize"><span>More </span></button>
     <div class="spinner-div">
       <b-spinner v-if="arrayLength === 0" variant="secondary" type="grow" label="Spinning"></b-spinner>
     </div>
@@ -13,6 +14,7 @@
       </b-col>
     </b-row>
   </b-container>
+</div>
 </template>
 
 <script>
@@ -25,21 +27,10 @@
         await axios
             .get(get_ids_url)
             .then(response => {
-                // console.log("RecipePreviewList: axios response:");
-                // console.log(response);
+                console.log(response)
                 randomIds = response.data;
                 return randomIds;
-            })
-            // .then(response => {
-            //     console.log("Second then:" + response)
-            //     if(Number.isInteger(response[0])){
-            //         console.log('Integer: The random IDs from axios: ' + response)
-            //     }
-            //     else
-            //     {
-            //         console.log('Object: The random IDs from axios: ' + response.id)
-            //     }
-            // })
+            }).catch(response=> console.log("no recipes"))
         let recipeId
         const recipesArray = []
         for (recipeId in randomIds) {
@@ -51,7 +42,6 @@
                         return response.data
                     })
                     .then((jsonData) => {
-                        // console.log(jsonData)
                         recipesArray.push(jsonData)
                     })
             }
@@ -59,11 +49,9 @@
             {
                 await axios('http://localhost/recipes/preview/recId/' + randomIds[recipeId].id)
                     .then(response => {
-                        // console.log(response)
                         return response.data
                     })
                     .then((jsonData) => {
-                        // console.log(jsonData)
                         recipesArray.push(jsonData)
                     })
             }
@@ -86,15 +74,16 @@
             url: {
                 type: String,
                 required: true
+            },
+            rand: {
+                type: Boolean
             }
         },
-        // computed: {
-        //
-        // },
         data() {
             return {
                 arrayLength: 0,
-                loadedRecipesArray: []
+                loadedRecipesArray: [],
+                errors: []
             };
         },
         mounted() {
@@ -105,6 +94,11 @@
                 const { recipesArray, length } = await getRecipesData(this.url);
                 this.arrayLength = length
                 this.loadedRecipesArray = recipesArray
+            },
+            randomize(){
+                if(this.rand){
+                    this.updateRecipes();
+                }
             }
         }
     };
@@ -121,6 +115,44 @@
   .col{
     width: 100%;
     height: 10%;
+  }
+  .button{
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #1b89ff;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    height: 40px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+  }
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+
+  .button:hover span {
+    padding-right: 25px;
+  }
+
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
   }
   .spinner-div{
     top: 0;
