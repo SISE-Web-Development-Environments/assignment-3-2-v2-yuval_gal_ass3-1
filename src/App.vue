@@ -3,6 +3,8 @@
     <div id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
       <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'main' }">Home Page</router-link>
       <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'search' }">Search</router-link>
+      <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'about' }">About</router-link>
+
       <span v-if="!$root.store.username">
          Hello Guest:
         <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'register' }">Register</router-link>

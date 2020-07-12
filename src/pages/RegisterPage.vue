@@ -283,7 +283,12 @@
                             "http://localhost/user/Register",
                         {
                             username: this.form.username,
-                            password: this.form.password
+                            password: this.form.password,
+                            firstName: this.form.firstName,
+                            lastName: this.form.lastName,
+                            email: this.form.email,
+                            profilePic: this.form.profile,
+                            country: this.form.country
                         }
                     );
                     this.$router.push("/login");
