@@ -32,7 +32,7 @@
         </div>
       </b-card-text>
         <br>
-        <a v-if="!recipe.saved && $root.store.isLoggedin()" @click="addToFavorite(recipe.id)" href="#" class="button">Save recipe</a>
+        <a v-if="!recipe.saved && $root.store.isLoggedin()" @click.prevent="addToFavorite(recipe.id)" href="#" class="button">Save recipe</a>
     </b-card>
     </router-link>
   </div>
@@ -80,14 +80,15 @@
         },
           async addToFavorite(id){
               try {
-                  response = await axios.post(
+                  let response = await axios.post(
                       'http://localhost/profile/add_to_favorite/',
                       {
                            params: { recipeId: id }
                        }
                   );
-                  if (response.status !== 201) console.log("!=201");
+                  this.recipe.saved=true;
               } catch (error) {
+                  console.log(error)
                   console.log("error.response.status", error.response.status);
               }
           }
