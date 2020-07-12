@@ -1,9 +1,11 @@
 <template>
+  <div>
   <b-container>
     <h3>
       {{ title }}
     </h3>
-    <button v-if="rand" @click="randomize">More</button>
+    <button class="button" style="vertical-align:middle" v-if="rand" @click="randomize"><span>More </span></button>
+
     <slot></slot>
     <b-row md="3">
       <b-col v-for="(r, index) in loadedRecipesArray" :key="index">
@@ -11,6 +13,7 @@
       </b-col>
     </b-row>
   </b-container>
+</div>
 </template>
 
 <script>
@@ -86,7 +89,7 @@
                 required: true
             },
             rand: {
-                type: String
+                type: Boolean
             }
         },
         data() {
@@ -124,5 +127,43 @@
   .col{
     width: 100%;
     height: 10%;
+  }
+  .button{
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #1b89ff;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    height: 40px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+  }
+  .button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+
+  .button:hover span {
+    padding-right: 25px;
+  }
+
+  .button:hover span:after {
+    opacity: 1;
+    right: 0;
   }
 </style>
