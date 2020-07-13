@@ -36,6 +36,9 @@ Personal</b-navbar-brand>
                   <b-navbar-brand :to="{ name: 'Family' }"><i class="fa fa-users" aria-hidden="true"></i>
 Family</b-navbar-brand>
                 </ol>
+                <ol>
+                          <b-button variant="link" @click.prevent="showPanel">Add new Recipe</b-button>
+                </ol>
               </b-dropdown>
         Hello There {{ $root.store.username }}: <b-button
           type="submit"
@@ -44,15 +47,26 @@ Family</b-navbar-brand>
           @click="Logout">Logout</b-button>
       </span>
     </div>
+    <slideout-panel></slideout-panel>
+    <b-modal ref="my-modal" hide-footer hide-header size="sm" body-bg-variant="success">
+      <div class="d-block text-center">
+        <h5>Recipe added successfully</h5>
+      </div>
+    </b-modal>
     <router-view />
   </div>
 </template>
 
 <script>
-import VueCookies from "vue-cookies";
 
 export default {
   name: "App",
+  data() {
+      return {
+          isModalVisible: false,
+          openOn: 'right',
+      }
+  },
   methods: {
     Logout() {
       console.log("Logging Out");
@@ -64,6 +78,28 @@ export default {
       this.$router.push({name: "main"}).catch(() => {
         this.$router.go();
       });
+    },
+
+    showPanel() {
+        const panelResult = this.$showPanel({
+            component: 'recipeForm',
+            height: 600,
+            width: 900,
+            openOn: this.openOn
+        });
+
+        panelResult.promise
+            .then(result => {
+                console.log(result);
+                if( result === "success")
+                {
+                    this.$refs['my-modal'].toggle('#toggle-btn')
+                    setTimeout(() => {
+                        this.$refs['my-modal'].toggle('#toggle-btn');
+                        this.$router.go();
+                    }, 1000)
+                }
+            })
     }
   }
 };
@@ -71,6 +107,11 @@ export default {
 
 <style lang="scss">
 @import "src/scss/form-style.scss";
+
+.down-sctn{
+  text-align: right;
+
+}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

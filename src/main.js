@@ -5,12 +5,15 @@ import axios from "axios";
 import routes from "./routes";
 import VueRouter from "vue-router";
 import VueCookies from "vue-cookies"
+import VueSlideoutPanel from 'vue2-slideout-panel';
+import recipeForm from "./components/recipeForm";
 
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import {
   FormGroupPlugin,
+  FormCheckboxPlugin,
   FormPlugin,
   FormInputPlugin,
   ButtonPlugin,
@@ -22,9 +25,11 @@ import {
   LayoutPlugin,
   SpinnerPlugin,
   DropdownPlugin,
+  ModalPlugin,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
+  FormCheckboxPlugin,
   FormPlugin,
   FormInputPlugin,
   ButtonPlugin,
@@ -35,9 +40,12 @@ import {
   ToastPlugin,
   LayoutPlugin,
   SpinnerPlugin,
+  ModalPlugin,
   DropdownPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
+Vue.use(VueSlideoutPanel);
+Vue.component('recipeForm', recipeForm);
 
 axios.interceptors.request.use(
   function(config) {

@@ -60,6 +60,20 @@ const routes = [
     }
   },
   {
+    path: "/user/personal",
+    name: "Personal",
+    component: () => import("./pages/PersonalPage"),
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    //TODO: Should be removed before submitting the assignment
+    path: "/test",
+    name: "test",
+    component: () => import("./pages/test"),
+  },
+  {
     path: "*",
     name: "notFound",
     component: NotFound,
