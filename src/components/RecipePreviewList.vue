@@ -77,7 +77,10 @@
             },
             rand: {
                 type: Boolean
-            }
+            },
+            picked: {
+                type: String
+            },
         },
         data() {
             return {
@@ -89,8 +92,28 @@
         mounted() {
             this.updateRecipes();
         },
+        watch : {
+           url : async function() {
+                const { recipesArray, length } = await getRecipesData(this.url);
+                this.arrayLength = length
+                this.loadedRecipesArray = recipesArray
+            },
+            picked : function() {
+               if(this.picked === 'Popularity'){
+                   this.loadedRecipesArray.sort(function(a, b){
+                       return a.popularity - b.popularity;
+                   });
+               }
+               else if(this.picked === 'Preparation Time'){
+                   console.log("Preparation Time")
+                   this.loadedRecipesArray.sort(function(a, b){
+                       return a.prepTime - b.prepTime;
+                   });
+               }
+            }
+        },
         methods: {
-            async updateRecipes() {
+            async updateRecipes(){
                 const { recipesArray, length } = await getRecipesData(this.url);
                 this.arrayLength = length
                 this.loadedRecipesArray = recipesArray

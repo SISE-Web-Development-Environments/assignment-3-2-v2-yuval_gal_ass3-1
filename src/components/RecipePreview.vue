@@ -9,7 +9,7 @@
       <div class="border"></div>
         <br>
       <b-card-text class="text-card">
-        <img class="my-icon" src="https://img.icons8.com/cotton/64/000000/clock--v1.png"/>  {{ recipe.prepTime }}
+        <img class="my-icon" src="https://img.icons8.com/cotton/64/000000/clock--v1.png"/>  {{ recipe.prepTime }} Minutes
         <br>
         <img class="my-icon" src="https://img.icons8.com/plasticine/100/000000/like--v1.png"/>  {{ recipe.popularity }} Likes
         <br>
