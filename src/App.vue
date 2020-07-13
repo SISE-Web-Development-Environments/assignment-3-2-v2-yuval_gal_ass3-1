@@ -29,15 +29,13 @@ Login</b-navbar-brand>
 Favorites</b-navbar-brand>
                 </ol>
                 <ol>
-                  <b-navbar-brand :to="{ name: 'PersonalRecipes' }"><i class="fa fa-pencil" aria-hidden="true"></i>
-Personal</b-navbar-brand>
+                  <b-navbar-brand :to="{ name: 'PersonalRecipes' }"><i class="fa fa-pencil" aria-hidden="true"></i>Personal</b-navbar-brand>
                 </ol>
                 <ol>
-                  <b-navbar-brand :to="{ name: 'Family' }"><i class="fa fa-users" aria-hidden="true"></i>
-Family</b-navbar-brand>
+                  <b-navbar-brand :to="{ name: 'Family' }"><i class="fa fa-users" aria-hidden="true"></i> Family</b-navbar-brand>
                 </ol>
                 <ol>
-                          <b-button variant="link" @click.prevent="showPanel">Add new Recipe</b-button>
+                  <b-navbar-brand  id="addRecipe" @click.prevent="showPanel"><i class="fa fa-plus" aria-hidden="true"></i> Add new Recipe</b-navbar-brand>
                 </ol>
               </b-dropdown>
         Hello There {{ $root.store.username }}: <b-button
@@ -133,9 +131,13 @@ export default {
   font-weight: bold;
   color: #3b8ee2;
 }
+#addRecipe{
+  font-weight: bold;
+  color: #3b8ee2;
+}
 
 #nav a.router-link-exact-active {
-  color: #6bacf8;
+  color: #3b8ee2;
 }
 
 .logout-btn {
