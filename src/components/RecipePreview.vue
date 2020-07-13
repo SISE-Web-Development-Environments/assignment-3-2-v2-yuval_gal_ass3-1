@@ -32,7 +32,9 @@
           </div>
         </b-card-text>
           <br>
+        <div id="save-btn-div">
           <a v-if="!recipe.saved && $root.store.isLoggedin()" @click.prevent="addToFavorite(recipe.id)" href="#" class="button">Save recipe</a>
+        </div>
       </b-card>
     </router-link>
   </div>
@@ -125,6 +127,13 @@
     background: #2B2D42;
   }
 
+  #save-btn-div a {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: -0px;
+    border-radius: 20px;
+  }
   #wrapper-reg {
     background: #fff;
     position: relative;
