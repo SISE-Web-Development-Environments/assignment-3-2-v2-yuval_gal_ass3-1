@@ -1,6 +1,6 @@
 <template>
   <div>
-  <b-container>
+  <b-container :id="myContainer">
     <h1>
       {{ title }}
     </h1>
@@ -8,12 +8,13 @@
     <div class="spinner-div">
       <b-spinner v-if="arrayLength === 0" variant="secondary" type="grow" label="Spinning"></b-spinner>
     </div>
-    <b-row md="3">
-      <b-col v-for="(r, index) in loadedRecipesArray" :key="index">
-        <PreviewRecipe class="PreviewRecipe" :recipe="r" />
-      </b-col>
-    </b-row>
+    <div class="row" v-for="(group, i) in recipeGroups" :key="group">
+      <div class="col" v-for="(r, index) in loadedRecipesArray.slice(i * recipesPerRow, (i+1) * recipesPerRow)" :key="index">
+        <PreviewRecipe :relevant_class="relevantClass" :recipe="r" />
+      </div>
+    </div>
   </b-container>
+
 </div>
 </template>
 
@@ -81,13 +82,40 @@
             picked: {
                 type: String
             },
+            large: {
+                type: Boolean
+            },
         },
         data() {
             return {
+                recipesPerRow: 3,
                 arrayLength: 0,
                 loadedRecipesArray: [],
                 errors: []
             };
+        },
+        computed: {
+            recipeGroups () {
+                return Array.from(Array(Math.ceil(this.loadedRecipesArray.length / this.recipesPerRow)).keys())
+            },
+            relevantClass () {
+                if(this.large)
+                {
+                    return "wrapper-large";
+                }
+                else {
+                    return "wrapper-reg";
+                }
+            },
+            myContainer () {
+                if(this.large)
+                {
+                    return "myContainer"
+                }
+                else {
+                    return ""
+                }
+            }
         },
         mounted() {
             this.updateRecipes();
@@ -128,16 +156,15 @@
 </script>
 
 <style lang="scss" scoped>
-  .container {
-    min-height: 400px;
-  }
-  .row{
-    width: 100%;
-    height: 10%;
-  }
-  .col{
-    width: 100%;
-    height: 10%;
+  /*.container {*/
+  /*  min-height: 400px;*/
+  /*}*/
+  /*.row{*/
+  /*  width: 100%;*/
+  /*  height: 10%;*/
+  /*}*/
+  #myContainer{
+    width: 1200px;
   }
   .button{
     display: inline-block;
@@ -182,4 +209,5 @@
     position: fixed;
     transform: translate(800%, 500%);
   }
+
 </style>

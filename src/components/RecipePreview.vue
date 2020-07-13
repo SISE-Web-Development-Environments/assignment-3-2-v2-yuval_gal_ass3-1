@@ -1,39 +1,39 @@
 <template>
 
-  <div >
+  <div id="prvw-rcpe">
     <router-link
         :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
         class="recipe-preview"
     >
-      <b-card class="wrapper" :title="recipe.title" :img-src="recipe.image_url" img-alt="Image">
-      <div class="border"></div>
+      <b-card :id="relevant_class" class="wrapper" :title="recipe.title" :img-src="recipe.image_url" img-alt="Image">
+        <div class="border"></div>
         <br>
-      <b-card-text class="text-card">
-        <img class="my-icon" src="https://img.icons8.com/cotton/64/000000/clock--v1.png"/>  {{ recipe.prepTime }} Minutes
-        <br>
-        <img class="my-icon" src="https://img.icons8.com/plasticine/100/000000/like--v1.png"/>  {{ recipe.popularity }} Likes
-        <br>
-        <div v-if="recipe.vegetarian">
-        <img class="my-icon" v-if="recipe.vegetarian" src="https://img.icons8.com/dusk/64/000000/vegetarian-food.png"/> Vegetarian
-        </div>
-        <div v-if="recipe.vegan">
-        <img class="my-icon" v-if="recipe.vegan" src="https://img.icons8.com/dusk/64/000000/natural-food.png"/> Vegan
-        </div>
-        <div v-if="recipe.glutenFree">
-          <img class="my-icon" v-if="recipe.glutenFree" src="https://img.icons8.com/officel/16/000000/no-gluten.png"/> Gluten-free
-        </div>
-        <div v-if="recipe.watched">
-          <img src="https://img.icons8.com/bubbles/50/000000/eye-checked.png"/>
-          Watched
-        </div>
-        <div v-if="recipe.saved">
-          <img class="my-icon" src="https://img.icons8.com/bubbles/50/000000/likes-folder.png"/>
-          Saved
-        </div>
-      </b-card-text>
-        <br>
-        <a v-if="!recipe.saved && $root.store.isLoggedin()" @click.prevent="addToFavorite(recipe.id)" href="#" class="button">Save recipe</a>
-    </b-card>
+        <b-card-text class="text-card">
+          <img class="my-icon" src="https://img.icons8.com/cotton/64/000000/clock--v1.png"/>  {{ recipe.prepTime }} Minutes
+          <br>
+          <img class="my-icon" src="https://img.icons8.com/plasticine/100/000000/like--v1.png"/>  {{ recipe.popularity }} Likes
+          <br>
+          <div v-if="recipe.vegetarian">
+          <img class="my-icon" v-if="recipe.vegetarian" src="https://img.icons8.com/dusk/64/000000/vegetarian-food.png"/> Vegetarian
+          </div>
+          <div v-if="recipe.vegan">
+          <img class="my-icon" v-if="recipe.vegan" src="https://img.icons8.com/dusk/64/000000/natural-food.png"/> Vegan
+          </div>
+          <div v-if="recipe.glutenFree">
+            <img class="my-icon" v-if="recipe.glutenFree" src="https://img.icons8.com/officel/16/000000/no-gluten.png"/> Gluten-free
+          </div>
+          <div v-if="recipe.watched">
+            <img src="https://img.icons8.com/bubbles/50/000000/eye-checked.png"/>
+            Watched
+          </div>
+          <div v-if="recipe.saved">
+            <img class="my-icon" src="https://img.icons8.com/bubbles/50/000000/likes-folder.png"/>
+            Saved
+          </div>
+        </b-card-text>
+          <br>
+          <a v-if="!recipe.saved && $root.store.isLoggedin()" @click.prevent="addToFavorite(recipe.id)" href="#" class="button">Save recipe</a>
+      </b-card>
     </router-link>
   </div>
 </template>
@@ -46,6 +46,7 @@
       name: 'RecipePreview',
       props: {
           recipe: Object,
+          relevant_class: String,
       },
       data()
       {
@@ -123,19 +124,40 @@
   body {
     background: #2B2D42;
   }
-  b-card {
-  }
 
-  .wrapper {
+  #wrapper-reg {
     background: #fff;
-    position: fixed;
-    margin: 20px auto;
+    position: relative;
+    margin: 50px auto;
     box-shadow: 0px 0px 40px 10px #212129;
     opacity: 0.9;
     background-size: cover;
-    width: 170px;
+    width: 200px;
     height: 34rem;
   }
+
+  #wrapper-large {
+    background: #fff;
+    position: relative;
+    margin: 50px auto;
+    box-shadow: 0px 0px 40px 10px #212129;
+    opacity: 0.9;
+    background-size: cover;
+    width: 350px;
+    height: 40rem;
+  }
+
+   /*.recipe-preview :hover {*/
+   /*  overflow: hidden;*/
+   /*  transform: scale(1.2);*/
+   /*  z-index: 3;*/
+   /*  opacity: 1;*/
+   /*  -webkit-transition-duration: 0.5s;*/
+   /*  -moz-transition-duration: 0.5s;*/
+   /*  -o-transition-duration: 0.5s;*/
+   /*  transition-duration: 0.5s;*/
+   /*}*/
+
 
   .wrapper .name {
     font-size: 1.4em;

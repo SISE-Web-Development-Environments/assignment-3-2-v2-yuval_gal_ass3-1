@@ -56,7 +56,7 @@
         <!--end of col-->
       </div>
     </div>
-    <PreviewRecipeList v-if="url" :url="url" title="" :picked="picked"></PreviewRecipeList>
+    <PreviewRecipeList v-if="url" :url="url" title="" :picked="picked" :large="isLarge"></PreviewRecipeList>
   </div>
 </template>
 <script>
@@ -81,7 +81,8 @@
                 diet: ["Whole30", "Primal", "Paleo", "Pescetarian", "Vegan", "Ovo-Vegetarian",
                 "Lacto-Vegetarian", "Vegetarian", "Ketogenic", "Gluten Free"],
                 url:undefined,
-                picked:''
+                picked:'',
+                isLarge: true,
             }
         },
         components: {

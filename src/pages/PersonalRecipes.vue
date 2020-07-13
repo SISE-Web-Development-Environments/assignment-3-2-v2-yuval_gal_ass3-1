@@ -1,11 +1,14 @@
 <template>
   <div>
     <h1>My Personal Recipes</h1>
-    <RecipePreviewList
-        title=""
-        :url="url"
-        v-if="$root.store.isLoggedin()"
-    />
+    <div class="personal-cntnr">
+      <RecipePreviewList
+          title=""
+          :url="url"
+          v-if="$root.store.isLoggedin()"
+          :large="isLarge"
+      />
+    </div>
   </div>
 </template>
 
@@ -15,7 +18,8 @@
         name: "PersonalRecipes",
         data() {
             return {
-                url: 'http://localhost/profile/personal_recipes'
+                url: 'http://localhost/profile/personal_recipes',
+                isLarge: true
             }
         },
         components: {
@@ -27,5 +31,11 @@
 <style scoped>
   h1{
     text-align: center;
+  }
+  .personal-cntnr {
+    text-align: center;
+    left: 0;
+    transform: translateX(50%);
+    width: 900px;
   }
 </style>
