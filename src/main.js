@@ -24,6 +24,7 @@ import {
   ToastPlugin,
   LayoutPlugin,
   SpinnerPlugin,
+  DropdownPlugin,
   ModalPlugin,
 } from "bootstrap-vue";
 [
@@ -40,6 +41,7 @@ import {
   LayoutPlugin,
   SpinnerPlugin,
   ModalPlugin,
+  DropdownPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 Vue.use(VueSlideoutPanel);

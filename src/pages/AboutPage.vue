@@ -17,6 +17,13 @@
     </p>
     <p>
       Links to previous exercises we did:
+      <br>
+      <a href="https://sise-web-development-environments.github.io/assignment2-yuval_gal/">Pacman Game</a>
+      <br>
+      <a href="https://sise-web-development-environments.github.io/313581381/">Yuval's Personal Site</a>
+      <br>
+      <a href="https://sise-web-development-environments.github.io/312585268/">Gal's Personal Site</a>
+
     </p>
 
     <br>
