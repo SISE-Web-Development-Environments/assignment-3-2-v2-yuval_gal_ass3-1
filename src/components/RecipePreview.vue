@@ -128,7 +128,7 @@
 
   .wrapper {
     background: #fff;
-    position: fixed;
+    position: relative;
     margin: 20px auto;
     box-shadow: 0px 0px 40px 10px #212129;
     opacity: 0.9;
