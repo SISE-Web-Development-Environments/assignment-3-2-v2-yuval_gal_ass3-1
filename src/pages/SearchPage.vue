@@ -48,9 +48,11 @@
         <!--end of col-->
       </div>
     </div>
+    <PreviewRecipeList v-if="url" :url="url" title=""></PreviewRecipeList>
   </div>
 </template>
 <script>
+    import PreviewRecipeList from "../components/RecipePreviewList";
     export default {
         name: "Search",
         data() {
@@ -69,12 +71,54 @@
                     ,"Sesame","Shellfish","Soy","Sulfite","Tree Nut","Wheat"],
                 selectDiet: '',
                 diet: ["Whole30", "Primal", "Paleo", "Pescetarian", "Vegan", "Ovo-Vegetarian",
-                "Lacto-Vegetarian", "Vegetarian", "Ketogenic", "Gluten Free"]
+                "Lacto-Vegetarian", "Vegetarian", "Ketogenic", "Gluten Free"],
+                url:undefined
             }
+        },
+        components: {
+            PreviewRecipeList
         },
         methods:{
             search(){
+                this.url=undefined;
                 console.log("search is clicked");
+                this.url=`http://localhost/recipes/search/food_name/${this.line}/num/${this.selected}`
+                    let query='';
+                    let queryArray=[];
+                    console.log(this.selectCuisines);
+                    console.log(this.selectIntolerances);
+                    console.log(this.selectDiet);
+
+                    if(this.selectCuisines){
+                    queryArray.push(`cuisine=${this.selectCuisines}`)
+                    console.log(queryArray)
+                    }
+                    if(this.selectIntolerances){
+                        queryArray.push(`intolerances=${this.selectIntolerances}`)
+                        console.log(queryArray)
+
+                    }
+                    if(this.selectDiet){
+                        queryArray.push(`diet=${this.selectDiet}`)
+                        console.log(queryArray)
+
+                    }
+                    for(let i in queryArray){
+                        if(i === '0'){
+                            query='?'+queryArray[i];
+                        }
+                        else{
+                            query=query+'&'+queryArray[i];
+                        }
+                    }
+                    if(query){
+                        this.url=this.url+query;
+                    }
+                    console.log(this.url);
+                this.selectCuisines='';
+                this.selectIntolerances='';
+                this.selectDiet='';
+                this.selected= 5;
             },
         }
     }

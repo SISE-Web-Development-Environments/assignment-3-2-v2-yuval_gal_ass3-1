@@ -89,8 +89,15 @@
         mounted() {
             this.updateRecipes();
         },
+        watch : {
+           url : async function() {
+                const { recipesArray, length } = await getRecipesData(this.url);
+                this.arrayLength = length
+                this.loadedRecipesArray = recipesArray
+            }
+        },
         methods: {
-            async updateRecipes() {
+            async updateRecipes(){
                 const { recipesArray, length } = await getRecipesData(this.url);
                 this.arrayLength = length
                 this.loadedRecipesArray = recipesArray
