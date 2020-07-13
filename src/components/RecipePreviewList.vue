@@ -6,12 +6,15 @@
     </h1>
     <button class="button" style="vertical-align:middle" v-if="rand" @click="randomize"><span>More </span></button>
     <div class="spinner-div">
-      <b-spinner v-if="arrayLength === 0" variant="secondary" type="grow" label="Spinning"></b-spinner>
+      <b-spinner v-if="arrayLength === 0 && !askDone" variant="secondary" type="grow" label="Spinning"></b-spinner>
     </div>
     <div class="row" v-for="(group, i) in recipeGroups" :key="group">
       <div class="col" v-for="(r, index) in loadedRecipesArray.slice(i * recipesPerRow, (i+1) * recipesPerRow)" :key="index">
         <PreviewRecipe :relevant_class="relevantClass" :recipe="r" />
       </div>
+    </div>
+    <div  class="noFound" v-if="this.loadedRecipesArray.length === 0 && askDone">
+      No recipes matched your request
     </div>
   </b-container>
 
@@ -91,7 +94,8 @@
                 recipesPerRow: 3,
                 arrayLength: 0,
                 loadedRecipesArray: [],
-                errors: []
+                errors: [],
+                askDone: false
             };
         },
         computed: {
@@ -121,11 +125,9 @@
             this.updateRecipes();
         },
         watch : {
-           url : async function() {
-                const { recipesArray, length } = await getRecipesData(this.url);
-                this.arrayLength = length
-                this.loadedRecipesArray = recipesArray
-            },
+           url : function() {
+               this.updateRecipes();
+           },
             picked : function() {
                if(this.picked === 'Popularity'){
                    this.loadedRecipesArray.sort(function(a, b){
@@ -142,7 +144,10 @@
         },
         methods: {
             async updateRecipes(){
+                console.log("entered to updateRecipes")
+                this.askDone=false;
                 const { recipesArray, length } = await getRecipesData(this.url);
+                this.askDone=true;
                 this.arrayLength = length
                 this.loadedRecipesArray = recipesArray
             },
@@ -205,9 +210,15 @@
     right: 0;
   }
   .spinner-div{
-    top: 0;
+    /*top: 0;*/
     position: fixed;
     transform: translate(800%, 500%);
+  }
+  .noFound{
+    text-align: center;
+    color: #EF233C;
+    font-weight: bold;
+
   }
 
 </style>

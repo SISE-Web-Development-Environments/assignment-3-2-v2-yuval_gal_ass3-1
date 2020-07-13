@@ -25,14 +25,13 @@ Login</b-navbar-brand>
       <span class="left-side" v-else >
               <b-dropdown text="Personal" variant="primary" class="m-2">
                 <ol>
-                  <b-navbar-brand :to="{ name: 'MyFavorites' }"><i class="fa fa-heart-o" aria-hidden="true"></i>
-Favorites</b-navbar-brand>
+                  <b-navbar-brand :to="{ name: 'MyFavorites' }"><i class="fa fa-heart-o" aria-hidden="true"></i>Favorites</b-navbar-brand>
                 </ol>
                 <ol>
-                  <b-navbar-brand :to="{ name: 'PersonalRecipes' }"><i class="fa fa-pencil" aria-hidden="true"></i>Personal</b-navbar-brand>
+                  <b-navbar-brand :to="{ name: 'PersonalRecipes' }"><i class="fa fa-pencil" aria-hidden="true"></i>Private</b-navbar-brand>
                 </ol>
                 <ol>
-                  <b-navbar-brand :to="{ name: 'Family' }"><i class="fa fa-users" aria-hidden="true"></i> Family</b-navbar-brand>
+                  <b-navbar-brand :to="{ name: 'Family' }"><i class="fa fa-users" aria-hidden="true"></i> La Familia</b-navbar-brand>
                 </ol>
                 <ol>
                   <b-navbar-brand  id="addRecipe" @click.prevent="showPanel"><i class="fa fa-plus" aria-hidden="true"></i> Add new Recipe</b-navbar-brand>
