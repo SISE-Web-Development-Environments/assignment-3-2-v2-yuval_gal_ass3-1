@@ -8,12 +8,13 @@
     <div class="spinner-div">
       <b-spinner v-if="arrayLength === 0" variant="secondary" type="grow" label="Spinning"></b-spinner>
     </div>
-  </b-container>
-  <div class="row" v-for="(group, i) in recipeGroups" :key="group">
-    <div class="col" v-for="(r, index) in loadedRecipesArray.slice(i * recipesPerRow, (i+1) * recipesPerRow)" :key="index">
-      <PreviewRecipe :recipe="r" />
+    <div class="row" v-for="(group, i) in recipeGroups" :key="group">
+      <div class="col" v-for="(r, index) in loadedRecipesArray.slice(i * recipesPerRow, (i+1) * recipesPerRow)" :key="index">
+        <PreviewRecipe :relevant_class="relevantClass" :recipe="r" />
+      </div>
     </div>
-  </div>
+  </b-container>
+
 </div>
 </template>
 
@@ -81,10 +82,13 @@
             picked: {
                 type: String
             },
+            parent: {
+                type: String
+            },
         },
         data() {
             return {
-                recipesPerRow: 5,
+                recipesPerRow: 3,
                 arrayLength: 0,
                 loadedRecipesArray: [],
                 errors: []
@@ -93,6 +97,15 @@
         computed: {
             recipeGroups () {
                 return Array.from(Array(Math.ceil(this.loadedRecipesArray.length / this.recipesPerRow)).keys())
+            },
+            relevantClass () {
+                if(this.parent == "search")
+                {
+                    return "wrapper-search";
+                }
+                else {
+                    return "wrapper-reg";
+                }
             }
         },
         mounted() {
@@ -141,10 +154,9 @@
   /*  width: 100%;*/
   /*  height: 10%;*/
   /*}*/
-  /*.col{*/
-  /*  width: 100%;*/
-  /*  height: 10%;*/
-  /*}*/
+  .col{
+    width: 100%;
+  }
   .button{
     display: inline-block;
     border-radius: 4px;
@@ -189,7 +201,4 @@
     transform: translate(800%, 500%);
   }
 
-  .row {
-    position: relative;
-  }
 </style>
