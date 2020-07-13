@@ -1,20 +1,42 @@
 <template>
   <div id="app">
-    <div id="nav" class="navbar navbar-expand-lg navbar-light bg-light">
-      <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'main' }">Home Page</router-link>
-      <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'search' }">Search</router-link>
-      <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'about' }">About</router-link>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div id="nav" >
 
-      <span v-if="!$root.store.username">
+      <b-navbar-brand :to="{ name: 'main' }">
+        <i class="fa fa-home"></i>
+        Home Page
+      </b-navbar-brand>
+      <b-navbar-brand :to="{ name: 'search' }"><i class="fa fa-search"></i>
+        Search</b-navbar-brand>
+      <b-navbar-brand :to="{ name: 'about' }">
+        <i class="fa fa-id-card-o"></i>
+        About</b-navbar-brand>
+      <span class="left-side" v-if="!$root.store.username">
          Hello Guest:
-        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'register' }">Register</router-link>
-        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'login' }">Login</router-link>
-      </span>
-      <span v-else >
-        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'MyFavorites' }">Favorites</router-link>
-        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'PersonalRecipes' }">Personal</router-link>
-        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'Family' }">Family</router-link>
+              <b-navbar-brand :to="{ name: 'register' }"><i class="fa fa-user-plus" aria-hidden="true"></i>
+Register</b-navbar-brand>
+              <b-navbar-brand :to="{ name: 'login' }"><i class="fa fa-sign-in" aria-hidden="true"></i>
+Login</b-navbar-brand>
 
+<!--        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'register' }">Register</router-link>-->
+<!--        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'login' }">Login</router-link>-->
+      </span>
+      <span class="left-side" v-else >
+              <b-dropdown text="Personal" variant="primary" class="m-2">
+                <ol>
+                  <b-navbar-brand :to="{ name: 'MyFavorites' }"><i class="fa fa-heart-o" aria-hidden="true"></i>
+Favorites</b-navbar-brand>
+                </ol>
+                <ol>
+                  <b-navbar-brand :to="{ name: 'PersonalRecipes' }"><i class="fa fa-pencil" aria-hidden="true"></i>
+Personal</b-navbar-brand>
+                </ol>
+                <ol>
+                  <b-navbar-brand :to="{ name: 'Family' }"><i class="fa fa-users" aria-hidden="true"></i>
+Family</b-navbar-brand>
+                </ol>
+              </b-dropdown>
         Hello There {{ $root.store.username }}: <b-button
           type="submit"
           variant="primary"
@@ -78,4 +100,7 @@ export default {
 .logout-btn {
   cursor: pointer;
 }
+  span.left-side{
+    margin-left: 1100px;
+  }
 </style>

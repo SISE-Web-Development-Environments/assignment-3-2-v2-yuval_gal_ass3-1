@@ -21,6 +21,7 @@ import {
   ToastPlugin,
   LayoutPlugin,
   SpinnerPlugin,
+  DropdownPlugin,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -34,6 +35,7 @@ import {
   ToastPlugin,
   LayoutPlugin,
   SpinnerPlugin,
+  DropdownPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 
