@@ -136,7 +136,7 @@
     height: 34rem;
   }
 
-  #wrapper-search {
+  #wrapper-large {
     background: #fff;
     position: relative;
     margin: 50px auto;

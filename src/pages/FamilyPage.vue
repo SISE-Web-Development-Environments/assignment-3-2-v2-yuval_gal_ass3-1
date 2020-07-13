@@ -6,6 +6,7 @@
           title=""
           :url="url"
           v-if="$root.store.isLoggedin()"
+          :large="isLarge"
       />
     </div>
   </div>
@@ -17,7 +18,8 @@
       name: "FamilyPage",
       data() {
           return {
-              url: 'http://localhost/profile/family_recipes'
+              url: 'http://localhost/profile/family_recipes',
+              isLarge: true
           }
       },
       components: {
@@ -27,6 +29,9 @@
 </script>
 
 <style scoped>
+  h1{
+    text-align: center;
+  }
  .family-cntnr {
    text-align: center;
    left: 0;

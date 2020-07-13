@@ -6,6 +6,7 @@
           title=""
           :url="url"
           v-if="$root.store.isLoggedin()"
+          :large="isLarge"
       />
     </div>
   </div>
@@ -17,7 +18,8 @@
         name: "PersonalRecipes",
         data() {
             return {
-                url: 'http://localhost/profile/personal_recipes'
+                url: 'http://localhost/profile/personal_recipes',
+                isLarge: true
             }
         },
         components: {

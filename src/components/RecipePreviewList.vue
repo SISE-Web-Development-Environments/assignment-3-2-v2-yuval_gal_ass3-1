@@ -1,6 +1,6 @@
 <template>
   <div>
-  <b-container>
+  <b-container :id="myContainer">
     <h1>
       {{ title }}
     </h1>
@@ -82,8 +82,8 @@
             picked: {
                 type: String
             },
-            parent: {
-                type: String
+            large: {
+                type: Boolean
             },
         },
         data() {
@@ -99,12 +99,21 @@
                 return Array.from(Array(Math.ceil(this.loadedRecipesArray.length / this.recipesPerRow)).keys())
             },
             relevantClass () {
-                if(this.parent == "search")
+                if(this.large)
                 {
-                    return "wrapper-search";
+                    return "wrapper-large";
                 }
                 else {
                     return "wrapper-reg";
+                }
+            },
+            myContainer () {
+                if(this.large)
+                {
+                    return "myContainer"
+                }
+                else {
+                    return ""
                 }
             }
         },
@@ -154,8 +163,8 @@
   /*  width: 100%;*/
   /*  height: 10%;*/
   /*}*/
-  .col{
-    width: 100%;
+  #myContainer{
+    width: 1200px;
   }
   .button{
     display: inline-block;

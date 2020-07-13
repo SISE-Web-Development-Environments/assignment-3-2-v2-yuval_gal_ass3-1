@@ -56,7 +56,7 @@
         <!--end of col-->
       </div>
     </div>
-    <PreviewRecipeList v-if="url" :url="url" title="" :picked="picked" :parent="search_name"></PreviewRecipeList>
+    <PreviewRecipeList v-if="url" :url="url" title="" :picked="picked" :large="isLarge"></PreviewRecipeList>
   </div>
 </template>
 <script>
@@ -82,7 +82,7 @@
                 "Lacto-Vegetarian", "Vegetarian", "Ketogenic", "Gluten Free"],
                 url:undefined,
                 picked:'',
-                search_name: 'search'
+                isLarge: true,
             }
         },
         components: {
