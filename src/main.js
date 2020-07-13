@@ -86,6 +86,7 @@ const shared_data = {
   logout() {
     console.log("logout");
     localStorage.removeItem("username");
+    localStorage.removeItem(this.username);
     this.username = undefined;
   },
   isLoggedin() {
@@ -107,7 +108,7 @@ console.log(shared_data);
 router.beforeEach((to, from, next) => {
 
   //Validate the cookie is still valid, if not logout the last user
-  if(!Vue.$cookies.get("ass_session"))
+  if(!Vue.$cookies.get("ass_session") && shared_data.username)
   {
     shared_data.logout();
   }

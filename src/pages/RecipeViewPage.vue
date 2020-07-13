@@ -3,24 +3,26 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
-        <labal v-if="recipe.watchedRecipe"> <img src="https://img.icons8.com/bubbles/50/000000/eye-checked.png"/>
-          You already Watched this Recipe </labal>
-        <labal v-if="recipe.savedRecipe"> <img class="my-icon" src="https://img.icons8.com/bubbles/50/000000/likes-folder.png"/> You already Saved this Recipe </labal>
+        <div v-if="recipe.watchedRecipe"> <img src="https://img.icons8.com/bubbles/50/000000/eye-checked.png"/>
+          You already Watched this Recipe </div>
+        <div v-if="recipe.savedRecipe"> <img class="my-icon" src="https://img.icons8.com/bubbles/50/000000/likes-folder.png"/> You already Saved this Recipe </div>
         <img :src="recipe.image_url" class="center" />
+        <a v-if="!recipe.savedRecipe && $root.store.isLoggedin()" @click="addToFavorite(recipe.id)" href="#" class="button">Save recipe</a>
+
       </div>
       <div class="recipe-body">
         <div class="mb-3">
           <div>
             <img class="my-icon" src="https://img.icons8.com/cotton/64/000000/clock--v1.png"/>
-            Ready in {{ recipe.prepTime }} minutes |
+            Ready in {{ recipe.prepTime }} |
             <img class="my-icon" src="https://img.icons8.com/plasticine/100/000000/like--v1.png"/>
             {{ recipe.popularity }} Likes  |
             <img class="my-icon" src="https://img.icons8.com/dusk/64/000000/tableware.png"/>
             Num of dishes: {{ recipe.num_of_dishes }}
             <div>
-              <labal v-if="recipe.vegetarian"> <img class="my-icon" v-if="recipe.vegetarian" src="https://img.icons8.com/dusk/64/000000/vegetarian-food.png"/> Vegetarian </labal>
-              <labal v-if="recipe.vegan"> <img class="my-icon" v-if="recipe.vegan" src="https://img.icons8.com/dusk/64/000000/natural-food.png"/> Vegan </labal>
-              <labal v-if="recipe.glutenFree"> <img class="my-icon" v-if="recipe.glutenFree" src="https://img.icons8.com/officel/16/000000/no-gluten.png"/> Gluten-free </labal>
+              <div v-if="recipe.vegetarian"> <img class="my-icon" v-if="recipe.vegetarian" src="https://img.icons8.com/dusk/64/000000/vegetarian-food.png"/> Vegetarian </div>
+              <div v-if="recipe.vegan"> <img class="my-icon" v-if="recipe.vegan" src="https://img.icons8.com/dusk/64/000000/natural-food.png"/> Vegan </div>
+              <div v-if="recipe.glutenFree"> <img class="my-icon" v-if="recipe.glutenFree" src="https://img.icons8.com/officel/16/000000/no-gluten.png"/> Gluten-free </div>
 
             </div>
           </div>
@@ -78,6 +80,7 @@
                 }
 
                 let {
+                    id,
                     instructions,
                     ingredients,
                     popularity,
@@ -109,6 +112,7 @@
                     title,
                     vegetarian,
                     vegan,
+                    id,
                     glutenFree,
                     num_of_dishes,
                     watchedRecipe,
@@ -119,7 +123,26 @@
             } catch (error) {
                 console.log(error);
             }
+        },
+        methods:{
+            async addToFavorite(id){
+                try {
+                    console.log(id);
+                    let response = await axios.post(
+                        'http://localhost/profile/add_to_favorite/',
+                        {
+                            params: { recipeId: id }
+                        }
+                    );
+                    console.log(response);
+                    if (response.status !== 201) console.log("!=201");
+                    this.recipe.savedRecipe=true;
+                } catch (error) {
+                    console.log("error.response.status", error.response.status);
+                }
+            }
         }
+
     };
 </script>
 
