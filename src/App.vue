@@ -49,6 +49,7 @@ Login</b-navbar-brand>
             </b-dropdown-item>
             <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-item @click="Logout" variant="danger">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
 <!--              <b-button-->
 <!--                type="submit"-->
 <!--                variant="light"-->
