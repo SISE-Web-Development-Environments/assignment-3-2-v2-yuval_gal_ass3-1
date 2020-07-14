@@ -5,7 +5,7 @@
         title=""
         :url="url"
         v-if="$root.store.isLoggedin()"
-        :large="isLarge"
+        :size="size"
     />
   </div>
 </template>
@@ -17,7 +17,7 @@
       data() {
           return {
               url: 'http://localhost/profile/favorites_recipes',
-              isLarge: true
+              size: "large"
           }
       },
       components: {
