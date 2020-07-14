@@ -103,7 +103,7 @@ export default {
         console.log(response);
         // this.$root.loggedIn = true;
         // console.log($root.store.login);
-        this.$root.store.login(this.form.username);
+        await this.$root.store.login(this.form.username)
         this.$router.push({name: "main"}).catch(() => {
             this.$router.go();
         });

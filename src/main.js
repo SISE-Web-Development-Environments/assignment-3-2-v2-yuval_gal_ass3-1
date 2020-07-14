@@ -26,6 +26,7 @@ import {
   SpinnerPlugin,
   DropdownPlugin,
   ModalPlugin,
+  AvatarPlugin,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -42,6 +43,7 @@ import {
   SpinnerPlugin,
   ModalPlugin,
   DropdownPlugin,
+  AvatarPlugin,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
 Vue.use(VueSlideoutPanel);
@@ -80,10 +82,31 @@ Vue.use(VueCookies)
 axios.defaults.withCredentials = true
 const shared_data = {
   username: localStorage.username,
-  login(username) {
+  prof_pic: localStorage.porfile_pic_url,
+  async login(username) {
     localStorage.setItem("username", username);
     this.username = username;
+    await this.get_profile_pic();
     console.log("login", this.username);
+  },
+  async get_profile_pic(){
+    try{
+      let profPicUrl = '';
+      await axios('http://localhost/user/get_profile_pic')
+          .then(response => {
+            console.log(response)
+            return response.data
+          })
+          .then((jsonData) => {
+            profPicUrl = jsonData
+            console.log(profPicUrl.url)
+            localStorage.setItem("porfile_pic_url", profPicUrl.url)
+            this.prof_pic = profPicUrl.url;
+          })
+    }
+    catch (e) {
+      console.log(e);
+    }
   },
   logout() {
     console.log("logout");
