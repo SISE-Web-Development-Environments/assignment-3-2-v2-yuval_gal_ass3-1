@@ -121,6 +121,6 @@
     width: 100%;
     padding: 10px;
     display: flex;
-    align-items: center;
+    justify-content: center;
   }
 </style>

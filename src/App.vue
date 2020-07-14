@@ -13,7 +13,6 @@
         <i class="fa fa-id-card-o"></i>
         About</b-navbar-brand>
       <span class="left-side" v-if="!$root.store.username">
-         Hello Guest:
               <b-navbar-brand :to="{ name: 'register' }"><i class="fa fa-user-plus" aria-hidden="true"></i>
 Register</b-navbar-brand>
               <b-navbar-brand :to="{ name: 'login' }"><i class="fa fa-sign-in" aria-hidden="true"></i>
@@ -22,26 +21,48 @@ Login</b-navbar-brand>
 <!--        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'register' }">Register</router-link>-->
 <!--        <router-link class="btn btn-sm btn-outline-secondary" type="button" :to="{ name: 'login' }">Login</router-link>-->
       </span>
-      <span class="left-side" v-else >
-              <b-dropdown text="Personal" variant="primary" class="m-2">
-                <ol>
-                  <b-navbar-brand :to="{ name: 'MyFavorites' }"><i class="fa fa-heart-o" aria-hidden="true"></i>Favorites</b-navbar-brand>
-                </ol>
-                <ol>
-                  <b-navbar-brand :to="{ name: 'PersonalRecipes' }"><i class="fa fa-pencil" aria-hidden="true"></i>Private</b-navbar-brand>
-                </ol>
-                <ol>
-                  <b-navbar-brand :to="{ name: 'Family' }"><i class="fa fa-users" aria-hidden="true"></i> La Familia</b-navbar-brand>
-                </ol>
-                <ol>
-                  <b-navbar-brand  id="addRecipe" @click.prevent="showPanel"><i class="fa fa-plus" aria-hidden="true"></i> Add new Recipe</b-navbar-brand>
-                </ol>
-              </b-dropdown>
-        Hello There {{ $root.store.username }}: <b-button
-          type="submit"
-          variant="primary"
-          class="logout-btn"
-          @click="Logout">Logout</b-button>
+      <span class="left-side" v-else @click="menuClicked">
+<!--        Hello There {{ $root.store.username }}:-->
+        <div class="btn-group avatar-image">
+
+          <b-dropdown block right variant="link" no-caret>
+<!--                    <div v-if="isMenuClicked" class="my-dropdown">-->
+            <template slot="button-content">
+               <b-avatar class="avatar-image" :src="$root.store.prof_pic"  size="5em">
+               </b-avatar>
+            </template>
+            <b-dropdown-item :variant="dd_item_variant" :to="{ name: 'MyFavorites'}">
+                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                  Favorites
+            </b-dropdown-item>
+            <b-dropdown-item :variant="dd_item_variant" :to="{ name: 'PersonalRecipes'}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                Personal
+            </b-dropdown-item>
+            <b-dropdown-item :variant="dd_item_variant" :to="{ name: 'Family'}">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                Family
+            </b-dropdown-item>
+            <b-dropdown-item :variant="dd_item_variant" @click.prevent="showPanel">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Add new Recipe
+            </b-dropdown-item>
+            <b-dropdown-divider></b-dropdown-divider>
+            <b-dropdown-item @click="Logout" variant="danger">
+<!--              <b-button-->
+<!--                type="submit"-->
+<!--                variant="light"-->
+<!--                class="logout-btn"-->
+<!--                size="sm"-->
+<!--                @click="Logout">-->
+<!--                  Logout-->
+<!--                </b-button>-->
+              Logout
+            </b-dropdown-item>
+          </b-dropdown>
+
+          </div>
+
       </span>
     </div>
     <slideout-panel></slideout-panel>
@@ -58,23 +79,29 @@ Login</b-navbar-brand>
 
 export default {
   name: "App",
-  data() {
+    data() {
       return {
           isModalVisible: false,
           openOn: 'right',
+          logoutBtnClassList: 'logout-btn',
+          isMenuClicked: false,
+          dd_item_variant: 'primary',
       }
   },
   methods: {
+    menuClicked () {
+      this.isMenuClicked = !this.isMenuClicked;
+    },
     Logout() {
-      console.log("Logging Out");
-      this.$root.store.logout();
-      this.$root.toast("Logout", "User logged out successfully", "success");
-      this.$cookies.remove('ass_session');
+        console.log("Logging Out");
+        this.$root.store.logout();
+        this.$root.toast("Logout", "User logged out successfully", "success");
+        this.$cookies.remove('ass_session');
 
 
-      this.$router.push({name: "main"}).catch(() => {
-        this.$router.go();
-      });
+        this.$router.push({name: "main"}).catch(() => {
+            this.$router.go();
+        });
     },
 
     showPanel() {
@@ -98,12 +125,17 @@ export default {
                 }
             })
     }
-  }
+  },
 };
 </script>
 
 <style lang="scss">
 @import "src/scss/form-style.scss";
+
+
+.avatar-image{
+  cursor: pointer;
+}
 
 .down-sctn{
   text-align: right;
@@ -130,6 +162,10 @@ export default {
   font-weight: bold;
   color: #3b8ee2;
 }
+
+#personal-drop-down {
+  pointer-events: none;
+}
 #addRecipe{
   font-weight: bold;
   color: #3b8ee2;
@@ -141,8 +177,13 @@ export default {
 
 .logout-btn {
   cursor: pointer;
+  pointer-events: auto;
 }
   span.left-side{
-    margin-left: 1100px;
+    position: absolute;
+    right: 0;
+    margin-right: 50px;
+    z-index: 3;
   }
+
 </style>
