@@ -8,7 +8,7 @@
           <form class="card card-sm">
             <div class="card-body row no-gutters align-items-center">
               <div class="col-auto">
-                <i class="fas fa-search h4 text-body"></i>
+                <i class="fa fa-search fa-2x" aria-hidden="true"></i>
               </div>
               <!--end of col-->
               <div class="col">
@@ -148,10 +148,10 @@
                     localStorage.setItem(this.$root.store.username, last_search);
 
                 }
-                this.selectCuisines='';
-                this.selectIntolerances='';
-                this.selectDiet='';
-                this.selected= 5;
+                // this.selectCuisines='';
+                // this.selectIntolerances='';
+                // this.selectDiet='';
+                // this.selected= 5;
             },
         }
     }
