@@ -6,7 +6,7 @@
           title=""
           :url="url"
           v-if="$root.store.isLoggedin()"
-          :large="isLarge"
+          :size="size"
       />
     </div>
   </div>
@@ -19,7 +19,7 @@
         data() {
             return {
                 url: 'http://localhost/profile/personal_recipes',
-                isLarge: true
+                size: "large"
             }
         },
         components: {
@@ -35,7 +35,7 @@
   .personal-cntnr {
     text-align: center;
     left: 0;
-    transform: translateX(50%);
-    width: 900px;
+    transform: translateX(35%);
+    width: 1200px;
   }
 </style>

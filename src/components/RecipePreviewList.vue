@@ -51,13 +51,16 @@
             }
             else
             {
-                await axios('http://localhost/recipes/preview/recId/' + randomIds[recipeId].id)
-                    .then(response => {
-                        return response.data
-                    })
-                    .then((jsonData) => {
-                        recipesArray.push(jsonData)
-                    })
+                console.log("############################################################")
+                console.log(randomIds[recipeId])
+                recipesArray.push(randomIds[recipeId])
+                // await axios('http://localhost/recipes/preview/recId/' + randomIds[recipeId].id)
+                //     .then(response => {
+                //         return response.data
+                //     })
+                //     .then((jsonData) => {
+                //         recipesArray.push(jsonData)
+                //     })
             }
         }
         return {
@@ -85,13 +88,16 @@
             picked: {
                 type: String
             },
-            large: {
-                type: Boolean
+            size: {
+                type: String
+            },
+            recipesPerRow: {
+                type: Number,
+                default: 3
             },
         },
         data() {
             return {
-                recipesPerRow: 3,
                 arrayLength: 0,
                 loadedRecipesArray: [],
                 errors: [],
@@ -103,16 +109,21 @@
                 return Array.from(Array(Math.ceil(this.loadedRecipesArray.length / this.recipesPerRow)).keys())
             },
             relevantClass () {
-                if(this.large)
+                console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+                console.log(this.size)
+                if(this.size === "large")
                 {
                     return "wrapper-large";
                 }
+                else if(this.size === "extra"){
+                    return "wrapper-xl";
+                }
                 else {
-                    return "wrapper-reg";
+                    return "wrapper-reg"
                 }
             },
             myContainer () {
-                if(this.large)
+                if(this.size === "large")
                 {
                     return "myContainer"
                 }

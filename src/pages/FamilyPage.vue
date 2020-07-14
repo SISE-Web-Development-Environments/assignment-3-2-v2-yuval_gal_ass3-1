@@ -6,7 +6,8 @@
           title=""
           :url="url"
           v-if="$root.store.isLoggedin()"
-          :large="isLarge"
+          :size="size"
+          :recipes-per-row="1"
       />
     </div>
   </div>
@@ -19,7 +20,7 @@
       data() {
           return {
               url: 'http://localhost/profile/family_recipes',
-              isLarge: true
+              size: "extra"
           }
       },
       components: {

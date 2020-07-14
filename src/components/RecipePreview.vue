@@ -26,6 +26,38 @@
             <img src="https://img.icons8.com/bubbles/50/000000/eye-checked.png"/>
             Watched
           </div>
+          <div v-if="recipe.from_whom">
+            <img class="medium" src="https://img.icons8.com/plasticine/100/000000/user-male-circle.png"/>
+            {{recipe.from_whom}}
+          </div>
+          <div v-if="recipe.special_time">
+            <img class="medium" src="https://img.icons8.com/plasticine/100/000000/new-year-calendar.png"/>
+            We usually prepare this on {{recipe.special_time}}
+          </div>
+          <div v-if="recipe.ingredients">
+            <br>
+            <b-row>
+              <b-col>
+                <img class="medium" src="https://img.icons8.com/plasticine/100/000000/ingredients.png"/>
+              </b-col>
+              <b-col class="ingrdnts">
+                <b-row v-for="(ing, index) in recipe.ingredients" :key="index">
+                  {{ing.name}}: {{ing.count}}
+                </b-row>
+              </b-col>
+            </b-row>
+          </div>
+          <div v-if="recipe.instructions">
+            <br>
+            <br>
+            <img class="medium" src="https://img.icons8.com/plasticine/100/000000/brief.png"/>
+            <b-row>
+              <b-col style="color: #b6a0a0; font-weight: bold" v-for="(ing, index) in recipe.instructions" :key="index">
+                {{ing}}
+              </b-col>
+            </b-row>
+          </div>
+<!--          <img src="https://img.icons8.com/plasticine/100/000000/brief.png"/>-->
           <div v-if="recipe.saved">
             <img class="my-icon" src="https://img.icons8.com/bubbles/50/000000/likes-folder.png"/>
             Saved
@@ -156,6 +188,17 @@
     height: 40rem;
   }
 
+  #wrapper-xl {
+    background: #fff;
+    position: relative;
+    margin: 50px auto;
+    box-shadow: 0px 0px 40px 10px #212129;
+    opacity: 0.9;
+    background-size: cover;
+    width: 60%;
+    height: 70rem;
+  }
+
    /*.recipe-preview :hover {*/
    /*  overflow: hidden;*/
    /*  transform: scale(1.2);*/
@@ -185,6 +228,17 @@
   .my-icon {
     height: 30px;
     width: 30px;
+  }
+
+  .ingrdnts {
+    left: 0;
+    align-items: start;
+  }
+  .medium{
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    width: 45px;
   }
 
   .text-card{
