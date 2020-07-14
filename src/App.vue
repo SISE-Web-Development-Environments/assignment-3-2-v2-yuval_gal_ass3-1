@@ -126,9 +126,6 @@ export default {
             })
     }
   },
-  component(id) {
-    insideComponent
-  }
 };
 </script>
 
@@ -143,15 +140,6 @@ export default {
 .down-sctn{
   text-align: right;
 
-}
-
-.theme-change{
-  color: #59595c;
-}
-
-
-.dd-itm{
-  left: 0px;
 }
 
 #app {

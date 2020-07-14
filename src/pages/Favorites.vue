@@ -16,7 +16,7 @@
       name: "Favorites",
       data() {
           return {
-              url: 'http://localhost/profile/favorites',
+              url: 'http://localhost/profile/favorites_recipes',
               isLarge: true
           }
       },
