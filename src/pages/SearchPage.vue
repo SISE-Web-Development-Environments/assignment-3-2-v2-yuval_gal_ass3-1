@@ -56,7 +56,7 @@
         <!--end of col-->
       </div>
     </div>
-    <PreviewRecipeList v-if="url" :url="url" title="" :picked="picked" :size="size"></PreviewRecipeList>
+    <PreviewRecipeList v-if="url || lastSearchArray" :url="url" :savedArray="lastSearchArray" title="" :shouldSave="shouldSave" @save-recipes="saveRecipes($event)" :picked="picked" :size="size"></PreviewRecipeList>
   </div>
 </template>
 <script>
@@ -65,6 +65,7 @@
         name: "Search",
         data() {
             return {
+                shouldSave: true,
                 line: "",
                 selected: 5,
                 numberOfRecipes: [5, 10, 15],
@@ -83,28 +84,35 @@
                 url:undefined,
                 picked:'',
                 size: "large",
+                lastSearchArray: undefined,
             }
         },
         components: {
             PreviewRecipeList
         },
         mounted() {
-            let lastSearch = JSON.parse(localStorage.getItem(this.$root.store.username));
-            console.log("***********************8")
-            console.log(localStorage.getItem(this.$root.store.username));
+            // let lastSearch = JSON.parse(localStorage.getItem(this.$root.store.username));
+            let lastSearch = this.$root.store.last_search
+            console.log("SEARCH_PAGE: loadded last search")
+            console.log(lastSearch);
             if(lastSearch){
-                this.line= lastSearch.line;
-                this.selected= lastSearch.selected;
-                this.selectCuisines= lastSearch.selectCuisines;
-                this.selectIntolerances= lastSearch.selectIntolerances;
-                this.selectDiet= lastSearch.selectDiet;
+                this.lastSearchArray = lastSearch;
+                console.log("SEARCH_PAGE: after equation")
+                console.log(this.lastSearchArray)
             }
         },
         methods:{
+            saveRecipes (recipesArray){
+                console.log("SEARCH_PAGE: save recipes")
+                console.log(recipesArray)
+                // localStorage.setItem(this.$root.store.username, JSON.stringify(recipesArray));
+                this.$root.store.last_search = recipesArray
+            },
             search(){
                 console.log("search is clicked");
 
                 this.url=undefined;
+                this.lastSearchArray = undefined;
                 this.url=`http://localhost/recipes/search/food_name/${this.line}/num/${this.selected}`;
                 let query='';
                 let queryArray=[];
@@ -137,17 +145,17 @@
                 }
                 console.log(this.url);
                 console.log(this.$root.store.username)
-                let last_search = JSON.stringify({
-                    line : this.line,
-                      selected : this.selected,
-                      selectCuisines: this.selectCuisines,
-                      selectIntolerances: this.selectIntolerances,
-                      selectDiet: this.selectDiet
-                })
-                if(this.$root.store.username){
-                    localStorage.setItem(this.$root.store.username, last_search);
-
-                }
+                // let last_search = JSON.stringify({
+                //     line : this.line,
+                //       selected : this.selected,
+                //       selectCuisines: this.selectCuisines,
+                //       selectIntolerances: this.selectIntolerances,
+                //       selectDiet: this.selectDiet
+                // })
+                // if(this.$root.store.username){
+                //     localStorage.setItem(this.$root.store.username, last_search);
+                //
+                // }
                 // this.selectCuisines='';
                 // this.selectIntolerances='';
                 // this.selectDiet='';

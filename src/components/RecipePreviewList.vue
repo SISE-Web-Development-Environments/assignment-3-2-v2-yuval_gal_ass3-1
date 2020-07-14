@@ -78,6 +78,10 @@
                 type: String,
                 required: true
             },
+            shouldSave: {
+                type: Boolean,
+                default: false
+            },
             url: {
                 type: String,
                 required: true
@@ -95,13 +99,17 @@
                 type: Number,
                 default: 3
             },
+            savedArray: {
+                type: Array
+            }
         },
         data() {
             return {
                 arrayLength: 0,
                 loadedRecipesArray: [],
                 errors: [],
-                askDone: false
+                askDone: false,
+                justMounted: true,
             };
         },
         computed: {
@@ -134,6 +142,15 @@
         },
         mounted() {
             this.updateRecipes();
+            this.justMounted = false
+            console.log("PREVIEW_LIST: saved array")
+            console.log(this.savedArray)
+            if (this.savedArray)
+            {
+                this.loadedRecipesArray = this.savedArray;
+                console.log("Loaded recipes")
+                console.log(this.loadedRecipesArray)
+            }
         },
         watch : {
            url : function() {
@@ -153,14 +170,25 @@
                }
             }
         },
+
         methods: {
             async updateRecipes(){
-                console.log("entered to updateRecipes")
-                this.askDone=false;
-                const { recipesArray, length } = await getRecipesData(this.url);
-                this.askDone=true;
-                this.arrayLength = length
-                this.loadedRecipesArray = recipesArray
+                if(this.url) {
+                    console.log("entered to updateRecipes")
+                    this.askDone = false;
+                    const {recipesArray, length} = await getRecipesData(this.url);
+                    this.askDone = true;
+                    this.arrayLength = length
+                    this.loadedRecipesArray = recipesArray
+                    if (!this.justMounted) {
+                        if (this.$root.store.username && this.shouldSave) {
+                            this.$emit('save-recipes', this.loadedRecipesArray)
+                        }
+                    }
+                }
+                else if(this.savedArray){
+                    console.log("PREVIEW_LIST: Do nothing")
+                }
             },
             randomize(){
                 if(this.rand){
