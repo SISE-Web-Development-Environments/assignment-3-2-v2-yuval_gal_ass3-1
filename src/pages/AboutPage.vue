@@ -5,12 +5,15 @@
       <br>
       Hello everyone !
       <br>
-      We are information systems engineering students in the third year, as part of the work on the Internet Development Environments course we were asked to prepare a recipe site.
+      We are Third year students for B.Sc in Software and System Information at Ben Gurion University of the negev,
+      <br>
+      as part of our homeworks in Internet Development Environments course we were asked to prepare a recipe site.
     </p>
     <p>
-      In this work we learned vue.js, an advanced javaScript framework used to build user interfaces, with the help of this framework we edited the client side.
+      In this homework we learned VueJS, an advanced javaScript framework used to build user interfaces, with the help of this framework we edited the client side.
       <br>
-      For the server side, we developed an API and worked with a site called spooncular to get recipe information, and we also used azure cloud.
+      For the server side, we developed an API and worked with the site <a href="https://spoonacular.com/food-api">spoonacular</a> to get information about recipes,
+      and we also used azure cloud SQL as our Database.
     </p>
     <p>
       This work was very challenging and very fun, we were very happy to learn new tools to help us in the future!
