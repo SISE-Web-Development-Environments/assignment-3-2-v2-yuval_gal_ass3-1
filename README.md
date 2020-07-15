@@ -8,7 +8,6 @@
 1. [ Logo ](#logo)
 1. [Introduction ](#introduction)
 1. [ API ](#ourAPI)
-1. [ System users ](#users)
 
 <a name="Introduction"></a>
 # Introduction
