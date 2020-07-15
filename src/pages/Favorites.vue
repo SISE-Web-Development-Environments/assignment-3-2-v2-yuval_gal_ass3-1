@@ -1,12 +1,14 @@
 <template>
   <div>
     <h1>My Favorites</h1>
-    <RecipePreviewList
-        title=""
-        :url="url"
-        v-if="$root.store.isLoggedin()"
-        :size="size"
-    />
+    <div class="fav-cntnr">
+      <RecipePreviewList
+          title=""
+          :url="url"
+          v-if="$root.store.isLoggedin()"
+          :size="size"
+      />
+    </div>
   </div>
 </template>
 
@@ -29,5 +31,11 @@
 <style scoped>
   h1{
     text-align: center;
+  }
+  .fav-cntnr {
+    text-align: center;
+    left: 0;
+    transform: translateX(35%);
+    width: 1200px;
   }
 </style>
