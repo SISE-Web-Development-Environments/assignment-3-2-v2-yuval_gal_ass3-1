@@ -44,8 +44,8 @@
         @click="Login">Login</b-button
       >
       <div class="mt-2">
-        Do not have an account yet?
-        <router-link to="register"> Register in here</router-link>
+        Don't have an account yet?
+        <router-link to="register"> Register here</router-link>
       </div>
     </b-form>
     <b-alert

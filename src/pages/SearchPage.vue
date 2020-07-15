@@ -45,7 +45,7 @@
             </select>
           </label>
         </div>
-        <div v-if="url">
+        <div v-if="url || lastSearchArray">
           <h5>Sort by:</h5>
           <input type="radio" id="time" value="Preparation Time" v-model="picked">
           <label for="time">Preparation Time</label>
@@ -56,7 +56,18 @@
         <!--end of col-->
       </div>
     </div>
-    <PreviewRecipeList v-if="url || lastSearchArray" :url="url" :savedArray="lastSearchArray" title="" :shouldSave="shouldSave" @save-recipes="saveRecipes($event)" :picked="picked" :size="size"></PreviewRecipeList>
+    <div class="search-rslts">
+      <PreviewRecipeList
+        v-if="url || lastSearchArray"
+        :url="url"
+        :savedArray="lastSearchArray"
+        title=""
+        :shouldSave="shouldSave"
+        @save-recipes="saveRecipes($event)"
+        :picked="picked"
+        :size="size"
+       ></PreviewRecipeList>
+    </div>
   </div>
 </template>
 <script>
@@ -92,13 +103,24 @@
         },
         mounted() {
             // let lastSearch = JSON.parse(localStorage.getItem(this.$root.store.username));
-            let lastSearch = this.$root.store.last_search
+            let search_history = JSON.parse(localStorage.getItem("search_history"))
             console.log("SEARCH_PAGE: loadded last search")
-            console.log(lastSearch);
-            if(lastSearch){
-                this.lastSearchArray = lastSearch;
-                console.log("SEARCH_PAGE: after equation")
-                console.log(this.lastSearchArray)
+            console.log(search_history);
+            if(search_history){
+                // if(this.$root.store.username === lastSearch.username)
+                // {
+                //     this.lastSearchArray = lastSearch.search;
+                //     console.log("SEARCH_PAGE: after equation")
+                //     console.log(this.lastSearchArray)
+                // }
+                search_history.forEach((userSearch) => {
+                    if(userSearch.username === this.$root.store.username)
+                    {
+                        this.lastSearchArray = userSearch.search;
+                        console.log("SEARCH_PAGE: after equation")
+                        console.log(this.lastSearchArray)
+                    }
+                })
             }
         },
         methods:{
@@ -106,7 +128,28 @@
                 console.log("SEARCH_PAGE: save recipes")
                 console.log(recipesArray)
                 // localStorage.setItem(this.$root.store.username, JSON.stringify(recipesArray));
-                this.$root.store.last_search = recipesArray
+                let search_history = JSON.parse(localStorage.getItem("search_history"));
+                let found_history = false;
+
+                search_history.forEach((userSearch) => {
+                    if(userSearch.username === this.$root.store.username)
+                    {
+                        userSearch.search = recipesArray;
+                        found_history = true;
+                    }
+                })
+
+                if(!found_history)
+                {
+                    search_history.push(
+
+                            {
+                        username: this.$root.store.username,
+                        search: recipesArray
+                    })
+                }
+                localStorage.setItem("search_history", JSON.stringify(search_history))
+
             },
             search(){
                 console.log("search is clicked");
@@ -175,6 +218,10 @@
     box-shadow: none;
   }
   h1{
+    text-align: center;
+  }
+
+  .search-rslts{
     text-align: center;
   }
 </style>

@@ -80,6 +80,13 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 Vue.use(VueCookies)
 axios.defaults.withCredentials = true
+
+//Set an empty array for the search history
+if(!localStorage.getItem("search_history"))
+{
+  localStorage.setItem("search_history", JSON.stringify([]));
+}
+
 const shared_data = {
   username: localStorage.username,
   prof_pic: localStorage.porfile_pic_url,

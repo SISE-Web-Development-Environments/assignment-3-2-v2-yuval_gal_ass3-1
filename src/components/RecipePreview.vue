@@ -36,11 +36,11 @@
           </div>
           <div v-if="recipe.ingredients">
             <br>
-            <b-row>
-              <b-col>
+            <b-row class="ingrdnts-row">
+              <b-col md="auto">
                 <img class="medium" src="https://img.icons8.com/plasticine/100/000000/ingredients.png"/>
               </b-col>
-              <b-col class="ingrdnts">
+              <b-col cols="7" class="ingrdnts">
                 <b-row v-for="(ing, index) in recipe.ingredients" :key="index">
                   {{ing.name}}: {{ing.count}}
                 </b-row>
@@ -228,6 +228,12 @@
   .my-icon {
     height: 30px;
     width: 30px;
+  }
+
+  .ingrdnts-row {
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
   }
 
   .ingrdnts {

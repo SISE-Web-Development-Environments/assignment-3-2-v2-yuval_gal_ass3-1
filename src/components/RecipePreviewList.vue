@@ -6,11 +6,14 @@
     </h1>
     <button class="button" style="vertical-align:middle" v-if="rand" @click="randomize"><span>More </span></button>
     <div class="spinner-div">
-      <b-spinner v-if="arrayLength === 0 && !askDone" variant="secondary" type="grow" label="Spinning"></b-spinner>
+      <b-spinner v-show="arrayLength === 0 && !askDone" variant="secondary" type="grow" label="Spinning"></b-spinner>
     </div>
-    <div class="row" v-for="(group, i) in recipeGroups" :key="group">
-      <div class="col" v-for="(r, index) in loadedRecipesArray.slice(i * recipesPerRow, (i+1) * recipesPerRow)" :key="index">
-        <PreviewRecipe :relevant_class="relevantClass" :recipe="r" />
+    <div v-show="arrayLength !== 0 && askDone">
+      <h2 id="last-hdr" v-show="savedArray">Last Search Results:</h2>
+      <div class="row" v-for="(group, i) in recipeGroups" :key="group">
+        <div class="col" v-for="(r, index) in loadedRecipesArray.slice(i * recipesPerRow, (i+1) * recipesPerRow)" :key="index">
+          <PreviewRecipe :relevant_class="relevantClass" :recipe="r" />
+        </div>
       </div>
     </div>
     <div  class="noFound" v-if="this.loadedRecipesArray.length === 0 && askDone">
@@ -188,10 +191,14 @@
                 }
                 else if(this.savedArray){
                     console.log("PREVIEW_LIST: Do nothing")
+                    this.arrayLength = this.savedArray.length
+                    this.askDone = true;
                 }
             },
             randomize(){
                 if(this.rand){
+                    this.arrayLength = 0;
+                    this.askDone = false;
                     this.updateRecipes();
                 }
             }
@@ -210,6 +217,14 @@
   #myContainer{
     width: 1200px;
   }
+
+  #last-hdr{
+    text-align: center;
+    line-height: 0px;
+    margin-bottom: 0;
+    margin-top: 50px;
+  }
+
   .button{
     display: inline-block;
     border-radius: 4px;

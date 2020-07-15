@@ -132,7 +132,12 @@ export default {
 
 <style lang="scss">
 @import "src/scss/form-style.scss";
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
 
+*{
+  font-family: "Comic Sans MS", cursive, sans-serif;
+
+}
 
 .avatar-image{
   cursor: pointer;
