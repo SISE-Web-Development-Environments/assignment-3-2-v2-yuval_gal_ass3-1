@@ -18,7 +18,7 @@
               </div>
               <!--end of col-->
               <div class="col-auto">
-                <button class="btn btn-lg btn-success" @click.prevent="search">Search</button>
+                <b-button :disabled="line.length === 0" class="btn btn-lg btn-success" @click.prevent="search">Search</b-button>
               </div>
               <!--end of col-->
             </div>
