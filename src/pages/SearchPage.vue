@@ -103,8 +103,10 @@
         },
         mounted() {
             // let lastSearch = JSON.parse(localStorage.getItem(this.$root.store.username));
-            let search_history = JSON.parse(localStorage.getItem("search_history"))
+            let search_history = this.$session.get("search_history")
             console.log("SEARCH_PAGE: loadded last search")
+            console.log("Session= " + this.$session);
+            console.log("search_history");
             console.log(search_history);
             if(search_history){
                 // if(this.$root.store.username === lastSearch.username)
@@ -128,27 +130,31 @@
                 console.log("SEARCH_PAGE: save recipes")
                 console.log(recipesArray)
                 // localStorage.setItem(this.$root.store.username, JSON.stringify(recipesArray));
-                let search_history = JSON.parse(localStorage.getItem("search_history"));
+                let search_history = this.$session.get("search_history");
+                console.log("search_history")
+                console.log(search_history)
                 let found_history = false;
-
-                search_history.forEach((userSearch) => {
-                    if(userSearch.username === this.$root.store.username)
-                    {
-                        userSearch.search = recipesArray;
-                        found_history = true;
-                    }
-                })
+                if(search_history) {
+                    search_history.forEach((userSearch) => {
+                        if (userSearch.username === this.$root.store.username) {
+                            userSearch.search = recipesArray;
+                            found_history = true;
+                        }
+                    })
+                }
+                else {
+                    search_history = []
+                }
 
                 if(!found_history)
                 {
                     search_history.push(
-
                             {
                         username: this.$root.store.username,
                         search: recipesArray
                     })
                 }
-                localStorage.setItem("search_history", JSON.stringify(search_history))
+                this.$session.set("search_history", search_history)
 
             },
             search(){

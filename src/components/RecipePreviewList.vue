@@ -120,7 +120,6 @@
                 return Array.from(Array(Math.ceil(this.loadedRecipesArray.length / this.recipesPerRow)).keys())
             },
             relevantClass () {
-                console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
                 console.log(this.size)
                 if(this.size === "large")
                 {
@@ -185,6 +184,7 @@
                     this.loadedRecipesArray = recipesArray
                     if (!this.justMounted) {
                         if (this.$root.store.username && this.shouldSave) {
+                            console.log("Emitting to save recipes")
                             this.$emit('save-recipes', this.loadedRecipesArray)
                         }
                     }

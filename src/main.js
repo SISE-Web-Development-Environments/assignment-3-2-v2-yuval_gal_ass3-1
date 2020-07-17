@@ -7,6 +7,7 @@ import VueRouter from "vue-router";
 import VueCookies from "vue-cookies"
 import VueSlideoutPanel from 'vue2-slideout-panel';
 import recipeForm from "./components/recipeForm";
+import VueSessionStorage from 'vue-sessionstorage'
 
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
@@ -48,6 +49,7 @@ import {
 Vue.use(Vuelidate);
 Vue.use(VueSlideoutPanel);
 Vue.component('recipeForm', recipeForm);
+Vue.use(VueSessionStorage)
 
 axios.interceptors.request.use(
   function(config) {
@@ -82,10 +84,10 @@ Vue.use(VueCookies)
 axios.defaults.withCredentials = true
 
 //Set an empty array for the search history
-if(!localStorage.getItem("search_history"))
-{
-  localStorage.setItem("search_history", JSON.stringify([]));
-}
+// if(!Vue.$session.get("search_history"))
+// {
+//   Vue.$session.set("search_history", JSON.stringify([]));
+// }
 
 const shared_data = {
   username: localStorage.username,
