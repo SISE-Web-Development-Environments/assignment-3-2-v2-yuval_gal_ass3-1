@@ -98,11 +98,12 @@ export default {
         this.$root.store.logout();
         this.$root.toast("Logout", "User logged out successfully", "success");
         this.$cookies.remove('ass_session');
-
+        this.$session.clear('search_history')
 
         this.$router.push({name: "main"}).catch(() => {
             this.$router.go();
         });
+
     },
 
     showPanel() {
