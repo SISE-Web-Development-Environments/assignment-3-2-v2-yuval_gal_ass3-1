@@ -101,7 +101,7 @@ const shared_data = {
   async get_profile_pic(){
     try{
       let profPicUrl = '';
-      await axios('http://localhost/user/get_profile_pic')
+      await axios('http://localhost/profile/get_profile_pic')
           .then(response => {
             console.log(response)
             return response.data

@@ -35,6 +35,8 @@
   }
  .family-cntnr {
    text-align: center;
+   align-items: center;
+   justify-content: center;
    left: 0;
    transform: translateX(50%);
    width: 900px;

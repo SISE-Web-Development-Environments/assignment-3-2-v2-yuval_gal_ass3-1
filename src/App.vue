@@ -161,6 +161,7 @@ export default {
   min-height: 100vh;
 }
 
+
 #nav {
   padding: 25px;
 }
