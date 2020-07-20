@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../assets/AboutUs-01.png" height="466" width="1164"/>
+    <img src="../../src/assets/AboutUs-01.png" height="466" width="1164"/>
     <p>
       <br>
       Hello everyone !

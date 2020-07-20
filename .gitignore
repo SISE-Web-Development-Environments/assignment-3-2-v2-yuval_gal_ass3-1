@@ -1,5 +1,5 @@
 .DS_Store
-node_modules
+*/node_modules/
 # /dist
 
 # local env files
@@ -19,3 +19,9 @@ pnpm-debug.log*
 *.ntvs*
 *.njsproj
 *.sln
+*/package-lock.json
+*/.idea/inspectionProfiles/Project_Default.xml
+*.env
+*/.idea/dataSources.xml
+
+*/.idea/assignment-3-2-yuval_gal_ass3-2.iml
