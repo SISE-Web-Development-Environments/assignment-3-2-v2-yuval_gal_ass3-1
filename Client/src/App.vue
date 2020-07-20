@@ -132,7 +132,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "src/scss/form-style.scss";
+@import "src/scss/form-style";
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
 
 *{
@@ -154,7 +154,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /*color: #2c3e50;*/
-  background-image: url("./assets/marble-background.jpg");
+  background-image: url("../src/assets/marble-background.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
