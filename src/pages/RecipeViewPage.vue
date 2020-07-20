@@ -3,11 +3,11 @@
     <div v-if="recipe">
       <div class="recipe-header mt-3 mb-4">
         <h1>{{ recipe.title }}</h1>
-        <div v-if="recipe.watchedRecipe"> <img src="https://img.icons8.com/bubbles/50/000000/eye-checked.png"/>
+        <div v-if="recipe.watched"> <img src="https://img.icons8.com/bubbles/50/000000/eye-checked.png"/>
           You already Watched this Recipe </div>
-        <div v-if="recipe.savedRecipe"> <img class="my-icon" src="https://img.icons8.com/bubbles/50/000000/likes-folder.png"/> You already Saved this Recipe </div>
+        <div v-if="recipe.saved"> <img class="my-icon" src="https://img.icons8.com/bubbles/50/000000/likes-folder.png"/> You already Saved this Recipe </div>
         <img :src="recipe.image_url" class="center" />
-        <a v-if="!recipe.savedRecipe && $root.store.isLoggedin()" @click="addToFavorite(recipe.id)" href="#" class="button">Save recipe</a>
+        <a v-if="!recipe.saved && $root.store.isLoggedin()" @click="addToFavorite(recipe.id)" href="#" class="button">Save recipe</a>
 
       </div>
       <div class="recipe-body">
@@ -91,8 +91,8 @@
                     vegan,
                     glutenFree,
                     num_of_dishes,
-                    watchedRecipe,
-                    savedRecipe
+                    watched,
+                    saved
                 } = response.data;
 
                 let _instructions = instructions
@@ -115,8 +115,8 @@
                     id,
                     glutenFree,
                     num_of_dishes,
-                    watchedRecipe,
-                    savedRecipe
+                    watched,
+                    saved
                 };
 
                 this.recipe = _recipe;
@@ -129,14 +129,14 @@
                 try {
                     console.log(id);
                     let response = await axios.post(
-                        'http://localhost/profile/add_to_favorite/',
+                        'http://localhost/profile/add_to_favorite',
                         {
-                            params: { recipeId: id }
+                            recipeId: id
                         }
                     );
                     console.log(response);
                     if (response.status !== 201) console.log("!=201");
-                    this.recipe.savedRecipe=true;
+                    this.recipe.saved=true;
                 } catch (error) {
                     console.log("error.response.status", error.response.status);
                 }

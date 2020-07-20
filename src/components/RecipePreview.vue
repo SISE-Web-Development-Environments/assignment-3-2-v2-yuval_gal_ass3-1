@@ -9,7 +9,7 @@
         <div class="border"></div>
         <br>
         <b-card-text class="text-card">
-          <img class="my-icon" src="https://img.icons8.com/cotton/64/000000/clock--v1.png"/>  {{ recipe.prepTime }} Minutes
+          <img class="my-icon" src="https://img.icons8.com/cotton/64/000000/clock--v1.png"/>  {{ recipe.prepTime ? recipe.prepTime : 1 }} Minutes
           <br>
           <img class="my-icon" src="https://img.icons8.com/plasticine/100/000000/like--v1.png"/>  {{ recipe.popularity }} Likes
           <br>
@@ -118,7 +118,7 @@
                   let response = await axios.post(
                       'http://localhost/profile/add_to_favorite/',
                       {
-                           params: { recipeId: id }
+                           recipeId: id
                        }
                   );
                   this.recipe.saved=true;
@@ -174,7 +174,7 @@
     opacity: 0.9;
     background-size: cover;
     width: 200px;
-    height: 34rem;
+    height: 40rem;
   }
 
   #wrapper-large {
